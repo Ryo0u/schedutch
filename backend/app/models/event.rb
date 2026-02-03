@@ -12,7 +12,7 @@ class Event < ApplicationRecord
   def generate_url_token
     self.url_token ||= loop do
       token = SecureRandom.urlsafe_base64
-      bread token unless Event.exist?(url_token: token)
+      break token unless Event.exists?(url_token: token)
     end
   end
   
