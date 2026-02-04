@@ -1,11 +1,14 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 // 入力データを格納する変数
 const title = ref('')
 const description = ref('')
 const password = ref('')
+
+const router = useRouter()
 
 // ボタンを押した時の処理
 const createEvent = async () => {
@@ -16,15 +19,15 @@ const createEvent = async () => {
         title: title.value,
         description: description.value,
         password: password.value,
-        password_confirmation: password.value // 確認用も同じものを送る簡易版
+        password_confirmation: password.value 
       }
     })
 
     // 成功したらここに来る
     console.log('成功！:', response.data)
-    alert('イベント作成成功！\nトークン: ' + response.data.url_token)
+    router.push(`/events/${response.data.url_token}`)
     
-    // フォームをクリア
+
     title.value = ''
     description.value = ''
     password.value = ''
