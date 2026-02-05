@@ -13,7 +13,11 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@tailwindcss/vite": "^4.1.18",
     "axios": "^1.13.4",
+    "tailwindcss": "^4.1.18",
+    "v-calendar": "^3.1.2",
     "vue": "^3.5.27",
     "vue-router": "^4.6.4"
   },

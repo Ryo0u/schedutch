@@ -21,7 +21,12 @@ class Api::V1::EventsController < ApplicationController
   private
   
     def event_params
-      params.require(:event).permit(:title, :description, :password, :password_confirmation)
+      params.require(:event).permit(:title,
+      :description,
+      :password,
+      :password_confirmation,
+      candidates_attributes: [:start_time, :end_time]
+      )
     end
 
 end
