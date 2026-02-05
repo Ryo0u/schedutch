@@ -8,7 +8,7 @@ const routes = [
     component: EventCreate
   },
   {
-    path: '/events/:id',
+    path: '/events/:url_token',
     name: 'EventShow',
     component: EventShow
   }
