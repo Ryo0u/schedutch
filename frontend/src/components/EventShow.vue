@@ -190,7 +190,7 @@ const formatDateHeader = (dateStr) => {
               <th 
                 v-for="(label, index) in headerLabels" 
                 :key="label.fullTime"
-                class="px-0 pb-0.5 font-normal text-left align-bottom relative bg-white border-t-2 border-gray-400 border-b border-gray-300"
+                class="px-0 pb-0.5 font-normal text-left align-bottom relative bg-white border-t-2 border-gray-400 border-b"
                 :class="[
                   index === headerLabels.length - 1 
                     ? 'w-0 border-r-2 rounded-tr-lg overflow-hidden' 

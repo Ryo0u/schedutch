@@ -53,7 +53,7 @@ const formatDisplayDate = (dateStr) => {
   
   const date = new Date(dateStr)
 	
-  const options = { month: 'numeric', day: 'numeric', weekday: 'short' }
+  const options = {year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' }
   const formatter = new Intl.DateTimeFormat('ja-JP', options)
   
   return formatter.format(date)
@@ -115,7 +115,6 @@ const removeCandidate = (index) => {
   candidates.value.splice(index, 1)
 }
 
-
 const createEvent = async () => {
 	if (!title.value || !password.value) {
 		alert('イベント名とパスワードを両方入力してください。')
@@ -163,6 +162,17 @@ const createEvent = async () => {
     isSubmitting.value = false
   }
 }
+
+const timeOptions = computed(() => {
+  const times = []
+  for (let h = 0; h < 24; h++) {
+    const hour = String(h).padStart(2, '0')
+    times.push(`${hour}:00`)
+    times.push(`${hour}:30`)
+  }
+  times.push('24:00')
+  return times
+})
 
 </script>
 
@@ -269,14 +279,36 @@ const createEvent = async () => {
 				<div class="flex flex-col lg:flex-row items-center justify-between gap-4">
 					<div class="flex items-center gap-2">
 						<span class="font-bold text-gray-600 text-sm">時間：</span>
-						<input v-model="defaultStartTime" type="time" class="p-2 border border-gray-400 rounded bg-white text-gray-700 outline-none">
+						
+						<div class="relative">	
+							<select v-model="defaultStartTime" class="p-2 pr-8 border border-gray-400 rounded bg-white text-gray-700 outline-none appearance-none cursor-pointer hover:bg-gray-50">
+								<option v-for="time in timeOptions" :key="time" :value="time">
+									{{ time }}
+								</option>
+							</select>
+							<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+								<svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+							</div>
+						</div>
+						
 						<span class="text-gray-600">〜</span>
-						<input v-model="defaultEndTime" type="time" class="p-2 border border-gray-400 rounded bg-white text-gray-700 outline-none">
+						
+						<div class="relative">	
+							<select v-model="defaultEndTime" class="p-2 pr-8 border border-gray-400 rounded bg-white text-gray-700 outline-none appearance-none cursor-pointer hover:bg-gray-50">
+								<option v-for="time in timeOptions" :key="time" :value="time">
+									{{ time }}
+								</option>
+							</select>
+							<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+								<svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+							</div>
+						</div>
 					</div>
 					
 					<button
 						@click="addCandidates"
-						class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition transform hover:-translate-y-0.5 cursor-pointer"
+						:disabled="selectionMode === 'range' ? (!range?.start || !range?.end) : !singleDate"
+						class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
 					>
 						↓ リストに追加
 					</button>
@@ -293,7 +325,7 @@ const createEvent = async () => {
 				<p>まだ候補日がありません。 <br> 上のカレンダーから候補日を追加してください。</p>
 			</div>
 			
-			<div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+			<div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
 				<div 
 					v-for="(candidate, index) in candidates"
 					:key="index"
@@ -312,29 +344,37 @@ const createEvent = async () => {
           </button>
 					
 					<div class="text-center">
-						<div class="text-lg font-bold text-gray-800 pb-2">
+						<div class="text-md font-bold text-gray-800 pb-2">
 							{{ formatDisplayDate(candidate.date) }}
             </div>
-						<div class="space-y-1">
+						<div class="flex flex-col gap-2 px-2 pb-2">
               <div class="flex items-center gap-2">
-                <label class="text-xs text-gray-500 font-bold w-8 text-right">開始</label>
-                <input 
-                  v-model="candidate.start" 
-                  type="time"
-                  class="flex-1 text-sm p-2 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 outline-none"
-                >
+								<label class="text-xs text-gray-500 font-bold w-8 text-right">開始</label>
+								<div class="relative flex-1">
+									<select v-model="candidate.start" class="w-full flex text-sm p-2 border border-gray-300 rounded bg-white outline-none focus:ring-1 focus:ring-blue-500 appearance-none">
+										<option v-for="t in timeOptions" :key="t" :value="t">{{ t }}</option>
+									</select>
+									<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-400">
+          					<svg class="h-3 w-3 fill-current" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+       						</div>
+								</div>
+                
               </div>
               
               <div class="flex items-center gap-2">
                 <label class="text-xs text-gray-500 font-bold w-8 text-right">終了</label>
-                <input 
-                  v-model="candidate.end" 
-                  type="time"
-                  class="flex-1 text-sm p-2 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 outline-none"
-                  >
+                <div class="relative flex-1">
+									<select v-model="candidate.end" class="w-full flex text-sm p-2 border border-gray-300 rounded bg-white outline-none focus:ring-1 focus:ring-blue-500 appearance-none">
+										<option v-for="t in timeOptions" :key="t" :value="t">{{ t }}</option>
+									</select>
+									<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-gray-400">
+          					<svg class="h-3 w-3 fill-current" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+       						</div>
+								</div>
               </div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			
