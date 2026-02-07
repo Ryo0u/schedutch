@@ -184,7 +184,7 @@ const timeOptions = computed(() => {
 		
 		<div class="flex flex-col lg:flex-row gap-8 mb-8">
 			
-			<div class="flex-1 min-w-75 bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+			<div class="flex-1 min-w-75 bg-gray-100 p-6 rounded-xl shadow-sm border border-gray-100">
 				
 				<h3 class="text-center text-xl font-bold border-b-2 border-b-blue-500 pb-2 mb-6 text-gray-700">
 					Step1 基本情報
@@ -217,7 +217,7 @@ const timeOptions = computed(() => {
 				
 			</div>
 			
-			<div class="flex-3 min-w-75 bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+			<div class="flex-3 min-w-75 bg-gray-100 p-6 rounded-xl shadow-sm border border-gray-100">
 				
 				<h3 class="text-center text-xl font-bold border-b-2 border-b-blue-500 pb-2 mb-4 text-gray-700">
 					Step2  候補日を選択
@@ -244,10 +244,10 @@ const timeOptions = computed(() => {
 						</div>
 					</div>
 					
-					<p class="flex-1 w-full text-sm text-blue-700 text-center bg-blue-50 rounded-full py-2">
+					<p class="flex-1 w-full text-sm text-gray-700 text-center bg-blue-100 rounded-full py-2">
 							日付を
-							<span v-if="selectionMode =='range'" class="font-bold border-b-2 border-blue-600">ドラッグ</span>
-							<span v-else class="font-bold border-b-2 border-blue-600">クリック</span>
+							<span v-if="selectionMode =='range'" class="text-blue-700 font-bold border-b-2 border-blue-600">ドラッグ</span>
+							<span v-else class="text-blue-700 font-bold border-b-2 border-blue-600">クリック</span>
 							して選択してください
 					</p>
 				</div>
@@ -316,7 +316,7 @@ const timeOptions = computed(() => {
 			</div>
 		</div>
 		
-		<div class=" bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+		<div class=" bg-gray-100 p-6 rounded-xl shadow-sm border border-gray-100">
 			<h3 class="text-center text-xl font-bold border-b-2 border-b-blue-500 pb-2 mb-6 text-gray-700">
 					Step3 登録リスト確認
 			</h3>
@@ -325,7 +325,7 @@ const timeOptions = computed(() => {
 				<p>まだ候補日がありません。 <br> 上のカレンダーから候補日を追加してください。</p>
 			</div>
 			
-			<div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+			<div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
 				<div 
 					v-for="(candidate, index) in candidates"
 					:key="index"
@@ -382,7 +382,7 @@ const timeOptions = computed(() => {
         
         <button 
           @click="createEvent"
-          :disabled="isSubmitting"
+          :disabled="isSubmitting || !title || !password || !candidates.length"
           class="w-full lg:w-auto bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold py-3 px-12 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span v-if="isSubmitting">作成中... </span>
