@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EventCreate from '../components/EventCreate.vue'
-import EventShow from '../components/EventShow.vue'
+import EventCreate from '../views/EventCreate.vue'
+import EventShow from '../views/EventShow.vue'
 const routes = [
   {
     path: '/',
