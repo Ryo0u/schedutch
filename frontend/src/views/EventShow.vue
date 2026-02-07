@@ -1,19 +1,20 @@
 <script setup>
-import {ref, computed, onMounted} from "vue"
+import {ref, onMounted} from "vue"
 import axios from "axios"
 import { useRoute } from "vue-router";
 
 import ShowHeader from '@/components/show/ShowHeader.vue'
 import ShowUsers from '@/components/show/ShowUsers.vue'
 import ShowTable from '@/components/show/ShowTable.vue'
+import ShowModal from '@/components/show/ShowModal.vue'
 
 const route = useRoute()
 const event = ref(null)
-const loading = ref(true)
+const isLoading = ref(true)
 const error = ref(null)
 
 // 予定入力画面用
-const showModal = ref(false)
+const isModal = ref(false)
 
 onMounted(async () => {
   try {
@@ -36,18 +37,18 @@ onMounted(async () => {
     error.value = 'イベントが見つかりませんでした。'
     
   } finally {
-    loading.value = false
+    isLoading.value = false
   }
 })
 
-const handleOpenModal = () => {
+const openModal = () => {
   console.log("モーダルを開く処理")
-  showModal.value = true
+  isModal.value = true
 }
 
 </script>
 <template>
-  <div v-if="loading" class="fixed inset-0 flex flex-col items-center justify-center bg-white">
+  <div v-if="isLoading" class="fixed inset-0 flex flex-col items-center justify-center bg-white">
   
     <div class="flex gap-5 mb-4">
       <div class="flex gap-5">
@@ -72,7 +73,7 @@ const handleOpenModal = () => {
   <div v-else class="max-w-5xl mx-auto p-8">
     <ShowHeader 
       :event="event" 
-      @open-modal="handleOpenModal" 
+      @open-isModal="openModal" 
     />
 
     <ShowUsers
@@ -81,7 +82,13 @@ const handleOpenModal = () => {
 
     <ShowTable
       :event="event"
-    /> 
+    />
+    
+    <ShowModal
+      v-if="isModal" 
+      :event="event"
+      @close="isModal = false"
+    />
   </div>
 </template>
 

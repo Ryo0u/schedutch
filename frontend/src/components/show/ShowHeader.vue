@@ -26,7 +26,7 @@ const emit = defineEmits(['open-modal'])
       
       <div class="flex-1 bg-gray-100 p-4 rounded-lg shadow border border-gray-100">
         <button 
-					@click="emit('open-modal')"
+					@click="emit('open-isModal')"
         	class="w-full bg-blue-600 text-white text-md font-bold mb-4 py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 hover:-translate-y-1 transition transform"
         >
           → あなたの予定を追加する
