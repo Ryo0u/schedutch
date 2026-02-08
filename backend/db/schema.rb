@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_03_121745) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_08_084024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,21 +33,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_03_121745) do
   end
 
   create_table "responses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "status"
-    t.bigint "time_slot_id", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["time_slot_id"], name: "index_responses_on_time_slot_id"
-    t.index ["user_id"], name: "index_responses_on_user_id"
-  end
-
-  create_table "time_slots", force: :cascade do |t|
     t.bigint "candidate_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "start_time"
+    t.datetime "start_time", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "updated_at", null: false
-    t.index ["candidate_id"], name: "index_time_slots_on_candidate_id"
+    t.bigint "user_id", null: false
+    t.index ["candidate_id"], name: "index_responses_on_candidate_id"
+    t.index ["user_id", "candidate_id", "start_time"], name: "unique_user_response", unique: true
+    t.index ["user_id"], name: "index_responses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,8 +55,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_03_121745) do
   end
 
   add_foreign_key "candidates", "events"
-  add_foreign_key "responses", "time_slots"
+  add_foreign_key "responses", "candidates"
   add_foreign_key "responses", "users"
-  add_foreign_key "time_slots", "candidates"
   add_foreign_key "users", "events"
 end

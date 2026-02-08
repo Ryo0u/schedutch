@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from "vue"
+import { ref, reactive, computed, watch, onMounted, onUnmounted } from "vue"
 
 const props = defineProps({
   event: {
@@ -14,8 +14,10 @@ const STATUS = {
   NG: 3       // ×
 }
 
+const isDragging =ref(false)
 const currentMode = ref(STATUS.OK)
 const userResponses = reactive({})
+
 
 const candidateDates = computed(() => {
   if (!props.event || !props.event.candidates) return []
@@ -66,19 +68,59 @@ const formatDateHeader = (dateStr) => {
 
 const getKey = (date, time) => `${date}-${time}`
 
-const handleCellClick = (date, time) => {
-  // 候補日以外はクリックできない
-  if (!isSlotActive(date, time)) return
-
-  const key = getKey(date, time)
-  
-  userResponses[key] = currentMode.value
-}
-
 const getCellStatus = (date, time) => {
   const key = getKey(date, time)
   return userResponses[key]
 }
+
+const updateStatus = (date, time) => {
+  if (!isSlotActive(date, time)) return
+  const key = getKey(date, time)
+  userResponses[key] = currentMode.value
+}
+
+// 1. マウスを押した時 (ドラッグ開始)
+const startDrag = (date, time) => {
+  isDragging.value = true
+  updateStatus(date, time)
+}
+
+// 2. マウスが乗った時 (ドラッグ中)
+const onMouseEnter = (date, time) => {
+  if (isDragging.value) {
+    updateStatus(date, time)
+  }
+}
+
+// 3. マウスを離した時 (ドラッグ終了)
+const stopDrag = () => {
+  isDragging.value = false
+}
+
+// 画面のどこでマウスを離してもドラッグを終了させるための設定
+onMounted(() => {
+  window.addEventListener('mouseup', stopDrag)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('mouseup', stopDrag)
+})
+
+// 全部OKで初期化
+watch(() => props.event, () => {
+  if (!props.event || !props.event.candidates) return
+
+  candidateDates.value.forEach(date => {
+    timeSlots.value.forEach(time => {
+      if (isSlotActive(date, time)) {
+        const key = getKey(date, time)
+        if (userResponses[key] === undefined) {
+          userResponses[key] = STATUS.OK
+        }
+      }
+    })
+  })
+}, { immediate: true, deep: true })
 
 </script>
 <template>
@@ -154,7 +196,10 @@ const getCellStatus = (date, time) => {
 							<td 
 								v-for="(time, index) in timeSlots" 
 								:key="date + time"
-								@click="handleCellClick(date, time)"
+								
+								@mousedown.prevent="startDrag(date, time)"
+                @mouseenter="onMouseEnter(date, time)"
+								
 								class="border-b-2 border-gray-400 h-6 p-0 text-center relative w-4 text-xs"
 								:class="[
 									isSlotActive(date, time)
@@ -167,7 +212,7 @@ const getCellStatus = (date, time) => {
 										(isSlotActive(date, time) && index !== 0) ? 'border-l border-l-gray-300' : ''
 								]"
 							>
-								<span v-if="isSlotActive(date, time)">
+								<span v-if="isSlotActive(date, time)" class="pointer-events-none">
                     {{ 
                       getCellStatus(date, time) === STATUS.OK ? '⚫︎' : 
                       getCellStatus(date, time) === STATUS.MAYBE ? '▲' : 
