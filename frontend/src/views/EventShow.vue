@@ -41,11 +41,6 @@ onMounted(async () => {
   }
 })
 
-const openModal = () => {
-  console.log("モーダルを開く処理")
-  isModal.value = true
-}
-
 </script>
 <template>
   <div v-if="isLoading" class="fixed inset-0 flex flex-col items-center justify-center bg-white">
@@ -73,7 +68,7 @@ const openModal = () => {
   <div v-else class="max-w-5xl mx-auto p-8">
     <ShowHeader 
       :event="event" 
-      @open-isModal="openModal" 
+      @openModal="isModal = true" 
     />
 
     <ShowUsers

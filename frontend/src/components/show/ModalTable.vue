@@ -14,10 +14,13 @@ const STATUS = {
   NG: 3       // ×
 }
 
+const emit = defineEmits(['submit-data'])
+
 const isDragging =ref(false)
 const currentMode = ref(STATUS.OK)
 const userResponses = reactive({})
 
+// --------- テーブル関連 ------------
 
 const candidateDates = computed(() => {
   if (!props.event || !props.event.candidates) return []
@@ -25,7 +28,7 @@ const candidateDates = computed(() => {
   return [...new Set(dates)].sort()
 })
 
-// スロット用
+// データ用
 const timeSlots = computed(() => {
   const slots = []
   for (let h = 0; h < 24; h++) {
@@ -66,9 +69,13 @@ const formatDateHeader = (dateStr) => {
   return new Intl.DateTimeFormat('ja-JP', {year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' }).format(date)
 }
 
-const getKey = (date, time) => `${date}-${time}`
+// -------------------------------
 
-const getCellStatus = (date, time) => {
+// --------- 回答ステータス管理 --------
+
+const getKey = (date, time) => `${date}T${time}`
+
+const getStatus = (date, time) => {
   const key = getKey(date, time)
   return userResponses[key]
 }
@@ -79,20 +86,19 @@ const updateStatus = (date, time) => {
   userResponses[key] = currentMode.value
 }
 
-// 1. マウスを押した時 (ドラッグ開始)
+
 const startDrag = (date, time) => {
   isDragging.value = true
   updateStatus(date, time)
 }
 
-// 2. マウスが乗った時 (ドラッグ中)
+
 const onMouseEnter = (date, time) => {
   if (isDragging.value) {
     updateStatus(date, time)
   }
 }
 
-// 3. マウスを離した時 (ドラッグ終了)
 const stopDrag = () => {
   isDragging.value = false
 }
@@ -121,6 +127,19 @@ watch(() => props.event, () => {
     })
   })
 }, { immediate: true, deep: true })
+
+
+// -----------------------------
+
+const submit = () => {
+	const payload = {
+		responses: userResponses
+	}
+	
+	emit("submit-data", payload)
+}
+
+defineExpose({ submit })
 
 </script>
 <template>
@@ -203,9 +222,9 @@ watch(() => props.event, () => {
 								class="border-b-2 border-gray-400 h-6 p-0 text-center relative w-4 text-xs"
 								:class="[
 									isSlotActive(date, time)
-										? (	getCellStatus(date, time) === STATUS.OK ? 'bg-blue-300 text-white' :
-												getCellStatus(date, time) === STATUS.MAYBE ? 'bg-yellow-300 text-yellow-600' :
-												getCellStatus(date, time) === STATUS.NG ? 'bg-gray-300 text-gray-500' :
+										? (	getStatus(date, time) === STATUS.OK ? 'bg-blue-300 text-white' :
+												getStatus(date, time) === STATUS.MAYBE ? 'bg-yellow-300 text-yellow-600' :
+												getStatus(date, time) === STATUS.NG ? 'bg-gray-300 text-gray-500' :
 												'bg-white hover:bg-gray-50')
 										: 'bg-gray-200 cursor-not-allowed',
 										
@@ -214,9 +233,9 @@ watch(() => props.event, () => {
 							>
 								<span v-if="isSlotActive(date, time)" class="pointer-events-none">
                     {{ 
-                      getCellStatus(date, time) === STATUS.OK ? '⚫︎' : 
-                      getCellStatus(date, time) === STATUS.MAYBE ? '▲' : 
-                      getCellStatus(date, time) === STATUS.NG ? '×' : '' 
+                      getStatus(date, time) === STATUS.OK ? '⚫︎' : 
+                      getStatus(date, time) === STATUS.MAYBE ? '▲' : 
+                      getStatus(date, time) === STATUS.NG ? '×' : '' 
                     }}
                 </span>
 							</td>
