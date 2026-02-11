@@ -1,20 +1,22 @@
 <script setup>
 import {ref, onMounted} from "vue"
 import axios from "axios"
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import ShowHeader from '@/components/show/ShowHeader.vue'
 import ShowUsers from '@/components/show/ShowUsers.vue'
 import ShowTable from '@/components/show/ShowTable.vue'
 import ShowModal from '@/components/show/ShowModal.vue'
+import ShowDelete from '@/components/show/ShowDelete.vue'
 
 const route = useRoute()
+const router = useRouter()
 const event = ref(null)
 const isLoading = ref(true)
 const error = ref(null)
 
-// 予定入力画面用
-const isModal = ref(false)
+const showModal = ref(false)
+const showDelete = ref(false)
 
 onMounted(async () => {
   try {
@@ -32,6 +34,29 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
+
+const deleteEvent = async (password) => {
+  try {
+    const token = route.params.url_token
+    
+    await axios.delete(`http://localhost:3000/api/v1/events/${token}`, {
+      data: {password: password}
+    })
+    
+    alert("イベントを排除しました")
+    showDelete.value = false
+    router.push("/")
+    
+  } catch (err) {
+    console.error(err)
+    
+    if (err.response && err.response.status === 401) {
+      alert('パスワードが間違っています')
+    } else {
+      alert('削除に失敗しました')
+    }
+  }
+}
 
 </script>
 <template>
@@ -60,7 +85,8 @@ onMounted(async () => {
   <div v-else class="max-w-5xl mx-auto p-8">
     <ShowHeader 
       :event="event" 
-      @openModal="isModal = true" 
+      @openModal="showModal = true" 
+      @deleteEvent="showDelete = true"
     />
 
     <ShowUsers
@@ -72,9 +98,15 @@ onMounted(async () => {
     />
     
     <ShowModal
-      v-if="isModal" 
+      v-if="showModal" 
       :event="event"
-      @close="isModal = false"
+      @closeModal="showModal = false"
+    />
+    
+    <ShowDelete
+      v-if="showDelete === true"
+      @closeDelete="showDelete = false"
+      @submitDelete="deleteEvent"
     />
   </div>
 </template>

@@ -10,7 +10,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(["close"])
+const emit = defineEmits(["closeModal"])
 
 const isExpanded = ref(true)
 
@@ -54,7 +54,7 @@ const createUser = async (data) => {
      
     alert("予定の登録が完了しました！")
     
-    emit("close")
+    emit("closeModal")
     
     location.reload()
     
@@ -87,7 +87,7 @@ const createUser = async (data) => {
           </button>
           
           <button
-            @click="emit('close')"
+            @click="emit('closeModal')"
             class="text-2xl text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition pb-1.5  cursor-pointer"
           >
             ×
@@ -96,7 +96,7 @@ const createUser = async (data) => {
         
       </div>
       
-      <div v-if="isExpanded" class="p-6 overflow-y-auto">
+      <div v-show="isExpanded" class="p-6 overflow-y-auto">
         <div class="max-w-5xl mx-auto">	
 					<div class="border-b border-gray-200 pb-8 mb-3">
 

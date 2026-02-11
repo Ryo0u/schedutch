@@ -23,6 +23,18 @@ class Api::V1::EventsController < ApplicationController
     end
   end
   
+  def destroy
+    event = Event.find_by(url_token: params[:id])
+    
+    if event.authenticate(params[:password])
+      event.destroy!
+      render json: {message: "削除しました"}, status: :ok
+    
+    else
+      render json: { error: 'パスワードが間違っています' }, status: :unauthorized
+    end
+  end
+  
   private
   
     def event_params
