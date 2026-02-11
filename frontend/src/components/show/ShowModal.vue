@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue"
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 import ModalTable from "./ModalTable.vue"
 
 const props = defineProps({
@@ -53,8 +52,12 @@ const createUser = async (data) => {
       
     )
      
-    console.log("イベント情報",props.event)
-    console.log("トークン",props.event?.url_token)
+    alert("予定の登録が完了しました！")
+    
+    emit("close")
+    
+    location.reload()
+    
   } catch (e) {
     console.error(e)
   }

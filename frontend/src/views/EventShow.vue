@@ -22,15 +22,7 @@ onMounted(async () => {
     const response = await axios.get(`http://localhost:3000/api/v1/events/${token}`)
     event.value = response.data
     
-    // ダミーデータ
-    if (!event.value.users) {
-      event.value.users = [
-        { id: 1, name: '山田 太郎', comment: 'よろしくお願いします！' },
-        { id: 2, name: '鈴木 花子', comment: '遅れるかもです' },
-        { id: 3, name: '佐藤 次郎', comment: '' },
-      ]
-    }
-    //　ここまで
+    console.log("データ", event)
     
   } catch (err) {
     console.error(err)

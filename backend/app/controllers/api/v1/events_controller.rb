@@ -12,7 +12,12 @@ class Api::V1::EventsController < ApplicationController
     event = Event.find_by(url_token: params[:id])
     
     if event
-      render json: event, include: :candidates
+      render json: event.as_json(include: {
+        candidates: {},
+        users: {
+          include: :responses
+        }
+      })
     else
       render json: { error: "イベントが見つかりませんでした" }, status: :not_found
     end

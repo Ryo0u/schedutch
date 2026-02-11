@@ -55,6 +55,40 @@ const formatDateHeader = (dateStr) => {
   return new Intl.DateTimeFormat('ja-JP', {year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' }).format(date)
 }
 
+const getStatusClass = (user, date, time) => {
+  if (!isSlotActive(date, time)) {
+    return "bg-gray-200" 
+  }
+  
+  const target = `${date}T${time}`
+  const response = user.responses.find(res => res.start_time.startsWith(target))
+  const status = response ? response.status : 0
+  
+  switch (status) {
+    case 1:
+      return "bg-blue-300 text-white border-l border-l-gray-200"
+    case 2 :
+      return "bg-yellow-300 text-yellow-600 border-l border-l-gray-200"
+    case 3 :
+      return "bg-gray-300 text-gray-500 border-l border-l-gray-200"
+    default:
+      return "bg-white"
+  }  
+}
+
+const getStatusSymbol = (user, date, time) => {
+  
+  const target = `${date}T${time}`
+  const response = user.responses.find(res => res.start_time.startsWith(target))
+  const status = response ? response.status : 0
+  
+  switch (status) {
+    case 1: return '⚫︎'
+    case 2: return '▲'
+    case 3: return '×'
+    default: return ''
+  }
+}
 </script>
 <template>
 	<h2 class="text-xl font-bold text-gray-700  bg-gray-100 p-3 rounded-t-lg flex items-center gap-2">
@@ -105,7 +139,7 @@ const formatDateHeader = (dateStr) => {
                 </th>
               </tr>
                 
-              <tr class="transition">
+              <tr>
                 <td 
                   v-for="(time, index) in timeSlots" 
                   :key="date + time"
@@ -123,11 +157,41 @@ const formatDateHeader = (dateStr) => {
                   class="h-6 p-0 border-b-2 border-r-2 border-gray-400 rounded-br-lg overflow-hidden w-0 bg-white"
                 ></td>
               </tr>
-      
-              <tr class="h-4 border-none">
+              
+              <template v-for="user in props.event.users" :key="user.id">
+                <tr class="h-1 border-none">
+              	  <td :colspan="headerLabels.length + 1" class="border-none bg-transparent"></td>
+                </tr>
+                
+                <tr class="h-6">
+                  
+                  <td class="py-1 px-2 bg-white text-xs font-bold text-gray-700 whitespace-nowrap w-20 text-center border-y-2 border-l-2 border-r-2 border-gray-400 rounded-l-lg">
+                    {{ user.name }}
+                  </td>
+                  
+                  <td 
+                    v-for="(time, index) in timeSlots" :key="index"
+                    class="border-t-2 border-b-2 border-t-gray-400 border-b-gray-400 text-center text-xs"
+                    :class="[
+                      getStatusClass(user, date, time),
+                    ]"
+                  >
+                    <span class="pointer-event-none">
+                      {{ getStatusSymbol(user, date, time) }}
+                    </span>
+                  </td>
+                  
+                  <td 
+                  class="h-6 p-0 border-b-2 border-r-2 border-gray-400  overflow-hidden w-0 bg-white"
+                  ></td>
+                </tr>
+              </template>
+              
+              
+              <tr class="h-5 border-none">
               	<td :colspan="headerLabels.length + 1" class="border-none bg-transparent"></td>
               </tr>
-      
+              
             </tbody>
           </table>
         </div>
