@@ -8,6 +8,7 @@ import ShowUsers from '@/components/show/ShowUsers.vue'
 import ShowTable from '@/components/show/ShowTable.vue'
 import ShowModal from '@/components/show/ShowModal.vue'
 import ShowDelete from '@/components/show/ShowDelete.vue'
+import ShowUrl from "@/components/show/ShowUrl.vue"
 
 const route = useRoute()
 const router = useRouter()
@@ -107,6 +108,10 @@ const deleteEvent = async (password) => {
       v-if="showDelete === true"
       @closeDelete="showDelete = false"
       @submitDelete="deleteEvent"
+    />
+    
+    <ShowUrl
+      
     />
   </div>
 </template>
