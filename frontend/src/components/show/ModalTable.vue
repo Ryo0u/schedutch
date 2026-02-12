@@ -16,11 +16,13 @@ const STATUS = {
 
 const emit = defineEmits(['submit-data'])
 
+const activeSlots = ref(new Set())
+
 const isDragging =ref(false)
 const currentMode = ref(STATUS.OK)
+
 const userResponses = reactive({})
 
-// --------- テーブル関連 ------------
 
 const candidateDates = computed(() => {
   if (!props.event || !props.event.candidates) return []
@@ -52,28 +54,42 @@ const headerLabels = computed(() => {
   })
 })
 
-const isSlotActive = (date, time) => {
-  if (!props.event) return false
-  
-  return props.event.candidates.some(c => {
-    const cDate = c.start_time.split("T")[0]
-    const cStart = c.start_time.split("T")[1].substring(0, 5)
-    const cEnd =c.end_time.split("T")[1].substring(0, 5)
-    
-    return date === cDate && time >= cStart && time < cEnd
-  })
-}
-
 const formatDateHeader = (dateStr) => {
   const date = new Date(dateStr)
   return new Intl.DateTimeFormat('ja-JP', {year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' }).format(date)
 }
 
-// -------------------------------
-
-// --------- 回答ステータス管理 --------
-
 const getKey = (date, time) => `${date}T${time}`
+
+const calculateActiveSlots = () => {
+  if (!props.event || !props.event.candidates) return
+  
+  const newSet = new Set()
+  
+  candidateDates.value.forEach(date => {
+    timeSlots.value.forEach(time => {
+      
+      const isActive = props.event.candidates.some(c => {
+        const cDate = c.start_time.split("T")[0]
+        const cStart = c.start_time.split("T")[1].substring(0, 5)
+        const cEnd =c.end_time.split("T")[1].substring(0, 5)
+        
+        return date === cDate && time >= cStart && time < cEnd
+      })
+      
+      if (isActive) {
+        newSet.add(`${date}T${time}`)
+      }
+    })
+  })
+  
+  activeSlots.value = newSet
+}
+
+const isSlotActive = (date, time) => {
+  const key = getKey(date, time)
+  return activeSlots.value.has(key)
+}
 
 const getStatus = (date, time) => {
   const key = getKey(date, time)
@@ -116,6 +132,8 @@ onUnmounted(() => {
 watch(() => props.event, () => {
   if (!props.event || !props.event.candidates) return
 
+  calculateActiveSlots()
+  
   candidateDates.value.forEach(date => {
     timeSlots.value.forEach(time => {
       if (isSlotActive(date, time)) {
@@ -129,7 +147,6 @@ watch(() => props.event, () => {
 }, { immediate: true, deep: true })
 
 
-// -----------------------------
 
 const submit = () => {
 	const payload = {

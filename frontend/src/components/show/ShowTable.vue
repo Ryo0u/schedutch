@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue"
+import { ref, computed, watch } from "vue"
 
 const props = defineProps({
   event: {
@@ -7,6 +7,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const activeSlots = ref(new Set())
 
 const candidateDates = computed(() => {
   if (!props.event || !props.event.candidates) return []
@@ -38,22 +40,44 @@ const headerLabels = computed(() => {
   })
 })
 
-const isSlotActive = (date, time) => {
-  if (!props.event) return false
-  
-  return props.event.candidates.some(c => {
-    const cDate = c.start_time.split("T")[0]
-    const cStart = c.start_time.split("T")[1].substring(0, 5)
-    const cEnd =c.end_time.split("T")[1].substring(0, 5)
-    
-    return date === cDate && time >= cStart && time < cEnd
-  })
-}
-
 const formatDateHeader = (dateStr) => {
   const date = new Date(dateStr)
   return new Intl.DateTimeFormat('ja-JP', {year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short' }).format(date)
 }
+
+const calculateActiveSlots = () => {
+  if (!props.event || !props.event.candidates) return
+  
+  const newSet = new Set()
+  
+  candidateDates.value.forEach(date => {
+    timeSlots.value.forEach(time => {
+      
+      const isActive = props.event.candidates.some(c => {
+        const cDate = c.start_time.split("T")[0]
+        const cStart = c.start_time.split("T")[1].substring(0, 5)
+        const cEnd =c.end_time.split("T")[1].substring(0, 5)
+        
+        return date === cDate && time >= cStart && time < cEnd
+      })
+      
+      if (isActive) {
+        newSet.add(`${date}T${time}`)
+      }
+    })
+  })
+  
+  activeSlots.value = newSet
+}
+
+const isSlotActive = (date, time) => {
+  const key = `${date}T${time}`
+  return activeSlots.value.has(key)
+}
+
+watch(() => props.event, () => {
+  calculateActiveSlots()
+}, { immediate: true, deep: true })
 
 const getStatusClass = (user, date, time) => {
   if (!isSlotActive(date, time)) {
@@ -159,7 +183,7 @@ const getStatusSymbol = (user, date, time) => {
               </tr>
               
               <template v-for="user in props.event.users" :key="user.id">
-                <tr class="h-1 border-none">
+                <tr class="h-0.5 border-none">
               	  <td :colspan="headerLabels.length + 1" class="border-none bg-transparent"></td>
                 </tr>
                 
