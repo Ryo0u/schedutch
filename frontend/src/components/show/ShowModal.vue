@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue"
+import { ref, computed, onMounted } from "vue"
 import axios from 'axios';
 import ModalTable from "./ModalTable.vue"
 
@@ -7,6 +7,11 @@ const props = defineProps({
   event: {
     type: Object,
     required: true
+  },
+  
+  editingUser: {
+    type: Object,
+    default: null
   }
 })
 
@@ -19,6 +24,15 @@ const password = ref("")
 const comment = ref("")
 const tableRef = ref(null)
 
+const isEditMode = computed(() => !!props.editingUser)
+
+onMounted(() => {
+  if (isEditMode.value) {
+    name.value = props.editingUser.name
+    comment.value = props.editingUser.comment
+  }
+})
+
 const toggleMinimize = () => {
   isExpanded.value = !isExpanded.value
 }
@@ -27,32 +41,47 @@ const triggerSubmit = () => {
   tableRef.value?.submit()
 }
 
-const createUser = async (data) => {
+const submitData = async (data) => {
   if (!name.value || !password.value) {
     alert("名前とパスワードを入力してください")
     return
   }
   
-  try {
-    const formattedResponses = Object.entries(data.responses).map(([time, status]) => {
-      return {
-        start_time: `${time}:00`,
-        status: status
-      }
-    })
-    
-    const response = await axios.post(`http://localhost:3000/api/v1/events/${props.event.url_token}/users`, {
-      user: {
-        name: name.value,
-        password: password.value,
-        comment: comment.value
-       },
-      responses: formattedResponses
+  const formattedResponses = Object.entries(data.responses).map(([time, status]) => {
+    return {
+      start_time: `${time}:00`,
+      status: status
     }
+  })
+  
+  try {
+    if (isEditMode.value) {
+      // 予定更新
+      await axios.patch(`http://localhost:3000/api/v1/users/${props.editingUser.id}`, {
+          user: {
+            name: name.value,
+            password: password.value,
+            comment: comment.value
+          },
+          responses: formattedResponses
+        }
+      )
       
-    )
-     
-    alert("予定の登録が完了しました！")
+      alert("予定を変更しました")
+    } else {
+      // 新規登録
+      await axios.post(`http://localhost:3000/api/v1/events/${props.event.url_token}/users`, {
+          user: {
+            name: name.value,
+            password: password.value,
+            comment: comment.value
+          },
+          responses: formattedResponses
+        }
+      )
+      
+      alert("予定を登録しました")
+    }
     
     emit("closeModal")
     
@@ -123,7 +152,8 @@ const createUser = async (data) => {
 					
 					<ModalTable
             :event="props.event"
-            @submit-data="createUser"
+            :editingUser="props.editingUser"
+            @submit-data="submitData"
             ref="tableRef"
           />
           

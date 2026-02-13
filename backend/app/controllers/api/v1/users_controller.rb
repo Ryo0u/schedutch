@@ -22,6 +22,55 @@ class Api::V1::UsersController < ApplicationController
       render json: { message: '登録しました' }, status: :created
     end
     
+    def update
+      user = User.find(params[:id])
+      
+      ActiveRecord::Base.transaction do
+        user.update!(user_params)
+        user.responses.destroy_all
+        
+        event = user.event
+        params[:responses].each do |res_data|
+          target_time = res_data[:start_time]
+          candidate = event.candidates.find_by("start_time <= ? AND end_time >= ?", target_time, target_time)
+          
+          if candidate
+            user.responses.create!(
+              candidate: candidate,
+              start_time: target_time,
+              status: res_data[:status]
+            )
+          end
+        end
+      end
+      
+      render json: { message: '予定を更新しました' }, status: :ok
+      
+      rescue => e
+        render json: { error: '更新に失敗しました', details: e.message }, status: :unprocessable_entity
+    end
+    
+    def authenticate
+      user = User.find(params[:id])
+      
+      if user.authenticate(params[:password])
+        render json: {message: '認証完了'}, status: :ok
+      else
+        render json: {message: 'パスワードが間違っています'}, status: :unauthorized
+      end
+    end
+    
+    def destroy
+      user = User.find(params[:id])
+      
+      if user.authenticate(params[:password])
+        user.destroy!
+        render json: { message: "削除しました" }, status: :ok
+      else
+        render json: {message: 'パスワードが間違っています'}, status: :unauthorized
+      end
+    end
+    
     private
     
       def user_params

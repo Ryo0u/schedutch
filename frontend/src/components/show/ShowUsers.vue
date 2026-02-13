@@ -5,6 +5,8 @@ defineProps({
     default: () => []
   }
 })
+
+const emit = defineEmits(["openEdit"])
 </script>
 
 <template>
@@ -21,21 +23,31 @@ defineProps({
             <li 
                 v-for="(user, index) in users" 
                 :key="user.id || index"
-                class="py-2 px-4 border-b border-gray-100 last:border-none flex items-center gap-3"
+                class="py-2 px-4 border-b border-gray-100 last:border-none flex items-center justify-between gap-3"
               >
-                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
-                  {{ user.name ? user.name.charAt(0) : '?' }}
+                <div class="flex items-center gap-3 overflow-hidden">
+                  <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
+                    {{ user.name ? user.name.charAt(0) : '?' }}
+                  </div>
+  
+                  <div class="flex items-baseline gap-3 min-w-0">
+                    <span class="font-bold text-gray-800 text-sm whitespace-nowrap">
+                      {{ user.name }}
+                    </span>
+                    
+                    <span v-if="user.comment" class="text-xs text-gray-600 truncate">
+                      {{ user.comment }}
+                    </span>
+                  </div>
                 </div>
+               
+                <button
+                  @click="emit('openEdit',user)"
+                  class="text-xs text-blue-400 hover:text-blue-500 font-bold border-b border-blue-400 hover:border-b-blue-500 px-1 py-0.5  transition-colors whitespace-nowrap cursor-pointer"
+                >
+                  予定を編集
+                </button>
 
-                <div class="flex items-baseline gap-3 min-w-0">
-                  <span class="font-bold text-gray-800 text-sm whitespace-nowrap">
-                    {{ user.name }}
-                  </span>
-                  
-                  <span v-if="user.comment" class="text-xs text-gray-600 truncate">
-                    {{ user.comment }}
-                  </span>
-                </div>
               </li>
           </ul>
       </div>

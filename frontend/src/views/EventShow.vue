@@ -7,8 +7,9 @@ import ShowHeader from '@/components/show/ShowHeader.vue'
 import ShowUsers from '@/components/show/ShowUsers.vue'
 import ShowTable from '@/components/show/ShowTable.vue'
 import ShowModal from '@/components/show/ShowModal.vue'
-import ShowDelete from '@/components/show/ShowDelete.vue'
 import ShowUrl from "@/components/show/ShowUrl.vue"
+import DeleteModal from "@/components/show/DeleteModal.vue";
+import EditModal from "@/components/show/EditModal.vue";
 
 const route = useRoute()
 const router = useRouter()
@@ -18,14 +19,14 @@ const error = ref(null)
 
 const showModal = ref(false)
 const showDelete = ref(false)
+const showEdit = ref(false)
+const editingUser = ref(null)
 
 onMounted(async () => {
   try {
     const token = route.params.url_token
     const response = await axios.get(`http://localhost:3000/api/v1/events/${token}`)
     event.value = response.data
-    
-    console.log("データ", event)
     
   } catch (err) {
     console.error(err)
@@ -46,6 +47,7 @@ const deleteEvent = async (password) => {
     
     alert("イベントを排除しました")
     showDelete.value = false
+    editingUser.value = null
     router.push("/")
     
   } catch (err) {
@@ -55,6 +57,55 @@ const deleteEvent = async (password) => {
       alert('パスワードが間違っています')
     } else {
       alert('削除に失敗しました')
+    }
+  }
+}
+
+const editRequest = (user) => {
+  editingUser.value = user
+  showEdit.value = true
+}
+
+const editUser = async (password) => {
+  try {
+    const userId = editingUser.value.id
+    
+    await axios.post(`http://localhost:3000/api/v1/users/${userId}/authenticate`, {
+      password: password
+    })
+    
+    showEdit.value = false
+    showModal.value = true
+    
+  } catch (err) {
+     console.error(err)
+     if (err.response && err.response.status === 401) {
+      alert('パスワードが間違っています')
+    } else {
+      alert('通信に失敗しました')
+    }
+  }
+}
+
+const deleteUser = async (password) => {
+  if (!confirm('本当に削除しますか？')) return;
+  
+  try {
+    const userId = editingUser.value.id
+    
+    await axios.delete(`http://localhost:3000/api/v1/users/${userId}`, {
+      data: { password: password }
+    })
+    
+    showEdit.value = false
+    location.reload()
+    
+  } catch (err) {
+     console.error(err)
+     if (err.response && err.response.status === 401) {
+      alert('パスワードが間違っています')
+    } else {
+      alert('通信に失敗しました')
     }
   }
 }
@@ -92,6 +143,7 @@ const deleteEvent = async (password) => {
 
     <ShowUsers
       :users="event.users"
+      @openEdit="editRequest"
     />
 
     <ShowTable
@@ -101,17 +153,24 @@ const deleteEvent = async (password) => {
     <ShowModal
       v-if="showModal" 
       :event="event"
-      @closeModal="showModal = false"
+      :editingUser="editingUser"
+      @closeModal="showModal = false, editingUser = null"
     />
     
-    <ShowDelete
+    <ShowUrl/>
+    
+    <DeleteModal
       v-if="showDelete === true"
       @closeDelete="showDelete = false"
       @submitDelete="deleteEvent"
     />
     
-    <ShowUrl
-      
+    <EditModal
+      v-if="showEdit === true"
+      :userName="editingUser?.name"
+      @closeEdit="showEdit = false"
+      @submitEdit="editUser"
+      @submitDelete="deleteUser"
     />
   </div>
 </template>

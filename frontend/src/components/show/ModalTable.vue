@@ -5,6 +5,11 @@ const props = defineProps({
   event: {
     type: Object,
     required: true
+  },
+  
+  editingUser: {
+    type: Object,
+    dafault: null
   }
 })
 
@@ -129,17 +134,28 @@ onUnmounted(() => {
 })
 
 // 全部OKで初期化
-watch(() => props.event, () => {
+watch(() => [props.event, props.editingUser], () => {
   if (!props.event || !props.event.candidates) return
 
   calculateActiveSlots()
+  
+  const isEditMode = !!props.editingUser
   
   candidateDates.value.forEach(date => {
     timeSlots.value.forEach(time => {
       if (isSlotActive(date, time)) {
         const key = getKey(date, time)
-        if (userResponses[key] === undefined) {
-          userResponses[key] = STATUS.OK
+        
+        if (isEditMode) {
+          const existingResponse = props.editingUser.responses.find(res => 
+            res.start_time.startsWith(key)
+          )
+          
+          userResponses[key] = existingResponse ? existingResponse.status : STATUS.OK
+        } else {
+          if (userResponses[key] === undefined) {
+            userResponses[key] = STATUS.OK
+          }
         }
       }
     })
