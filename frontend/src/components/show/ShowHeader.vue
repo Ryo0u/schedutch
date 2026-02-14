@@ -11,7 +11,7 @@ const emit = defineEmits(['openModal', 'deleteEvent'])
 <template>
   <div class=" flex flex-col lg:flex-row gap-5  mb-6">
 
-    <div class="flex-2 bg-gray-100 p-4 rounded-lg shadow border border-gray-100">
+    <div class="flex-2 bg-white p-4 rounded-lg shadow border border-gray-100">
       <div class="flex  items-baseline justify-between border-b border-gray-300">
         <h1 class="text-3xl text-gray-800 font-bold pb-2 ">{{ props.event.title }}</h1>
         <p 
@@ -33,13 +33,17 @@ const emit = defineEmits(['openModal', 'deleteEvent'])
       </div>
     </div>
     
-    <div class="flex-1 bg-gray-100 p-4 rounded-lg shadow border border-gray-100">
+    <div class="flex-1 bg-white p-4 rounded-lg shadow border border-gray-100">
       <button 
         @click="emit('openModal')"
         class="w-full bg-blue-600 text-white text-md font-bold mb-4 py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 hover:-translate-y-1 transition transform"
       >
-        → あなたの予定を追加する
+        <div class="flex justify-center items-center gap-4">
+          <span>→</span>
+          <span>あなたの予定を追加する</span>
+        </div>
       </button>
+      
       <p class="mt-2 text-xs text-gray-400 text-center">
         参加者の方はこちらから予定を追加してください
       </p>

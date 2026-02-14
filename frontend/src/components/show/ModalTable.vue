@@ -176,31 +176,31 @@ defineExpose({ submit })
 
 </script>
 <template>
-	<div class="flex gap-4">
-      <button 
-        @click="currentMode = STATUS.OK"
-        class="flex items-center gap-2 px-4 rounded-full border transition-all"
-        :class="currentMode === STATUS.OK ? 'bg-blue-50 border-blue-500 text-blue-600 font-bold ring-2 ring-blue-200' : 'bg-white border-gray-300 text-gray-500'"
-      >
-        <span class="text-xl">⚪︎</span> 参加
-      </button>
+	<div class="flex gap-4 sticky top-0 left-0 z-30">
+    <button 
+      @click="currentMode = STATUS.OK"
+      class="flex items-center gap-2 px-4 rounded-full border transition-all"
+      :class="currentMode === STATUS.OK ? 'bg-blue-50 border-blue-500 text-blue-600 font-bold ring-2 ring-blue-200' : 'bg-white border-gray-500 text-gray-500'"
+    >
+      <span class="text-xl">⚪︎</span> 参加
+    </button>
 
-      <button 
-        @click="currentMode = STATUS.MAYBE"
-        class="flex items-center gap-2 px-4 rounded-full border transition-all"
-        :class="currentMode === STATUS.MAYBE ? 'bg-yellow-50 border-yellow-500 text-yellow-600 font-bold ring-2 ring-yellow-200' : 'bg-white border-gray-300 text-gray-500'"
-      >
-        <span class="text-xl">△</span> 未定
-      </button>
+    <button 
+      @click="currentMode = STATUS.MAYBE"
+      class="flex items-center gap-2 px-4 rounded-full border transition-all"
+      :class="currentMode === STATUS.MAYBE ? 'bg-yellow-50 border-yellow-500 text-yellow-600 font-bold ring-2 ring-yellow-200' : 'bg-white border-gray-500 text-gray-500'"
+    >
+      <span class="text-xl">△</span> 未定
+    </button>
 
-      <button 
-        @click="currentMode = STATUS.NG"
-        class="flex items-center gap-2 px-4 rounded-full border transition-all"
-        :class="currentMode === STATUS.NG ? 'bg-gray-50 border-gray-500 text-gray-600 font-bold ring-2 ring-gray-200' : 'bg-white border-gray-300 text-gray-500'"
-      >
-        <span class="text-xl">×</span> 不参加
-      </button>
-    </div>
+    <button 
+      @click="currentMode = STATUS.NG"
+      class="flex items-center gap-2 px-4 rounded-full border transition-all"
+      :class="currentMode === STATUS.NG ? 'bg-gray-50 border-gray-500 text-gray-600 font-bold ring-2 ring-gray-200' : 'bg-white border-gray-500 text-gray-500'"
+    >
+      <span class="text-xl">×</span> 不参加
+    </button>
+  </div>
 	
 	<div class="w-full overflow-x-auto">
 		<div class="min-w-full my-6 text-center">         
@@ -211,7 +211,7 @@ defineExpose({ submit })
 						<tr class="h-6">
 							<td 
 								rowspan="2" 
-								class="py-1 px-2 bg-white text-xs font-bold text-gray-700 whitespace-nowrap w-20 text-center border-y-2 border-l-2 border-r-2 border-gray-400 rounded-l-lg"
+								class=" sticky left-0 z-20 py-1 px-2 bg-white text-xs font-bold text-gray-700 whitespace-nowrap w-20 text-center border-y-2 border-l-2 border-r-2 border-gray-400"
 							>
 								{{ formatDateHeader(date) }}
 							</td>

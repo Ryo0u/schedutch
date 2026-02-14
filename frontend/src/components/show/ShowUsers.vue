@@ -17,7 +17,7 @@ const emit = defineEmits(["openEdit"])
       </span>
     </h2>
       
-    <div class="bg-white rounded-b-lg shadow-sm border border-gray-100 overflow-hidden mb-10">
+    <div class="bg-white rounded-b-lg shadow-sm border border-gray-100 overflow-hidden mb-6">
       <div v-if="users && users.length > 0">
         <ul>
             <li 
@@ -25,19 +25,24 @@ const emit = defineEmits(["openEdit"])
                 :key="user.id || index"
                 class="py-2 px-4 border-b border-gray-100 last:border-none flex items-center justify-between gap-3"
               >
-                <div class="flex items-center gap-3 overflow-hidden">
-                  <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
-                    {{ user.name ? user.name.charAt(0) : '?' }}
-                  </div>
+                <div class="flex items-center gap-3 overflow-hidden py-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-blue-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                  </svg>
+
   
                   <div class="flex items-baseline gap-3 min-w-0">
                     <span class="font-bold text-gray-800 text-sm whitespace-nowrap">
                       {{ user.name }}
                     </span>
                     
-                    <span v-if="user.comment" class="text-xs text-gray-600 truncate">
-                      {{ user.comment }}
-                    </span>
+                    <div v-if="user.comment" class="relative ml-2 px-3 py-1 bg-white text-gray-600 text-sm rounded-lg max-w-180 border border-gray-400">
+                      <div class="absolute top-1/2 -left-[3.5px] -translate-y-1/2 w-1.5 h-1.5 bg-white rotate-45 border-l border-b border-gray-400"></div>
+
+                      <span class="relative z-10 truncate">
+                        {{ user.comment }}
+                      </span>
+                    </div>
                   </div>
                 </div>
                

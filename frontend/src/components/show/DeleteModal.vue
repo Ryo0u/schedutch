@@ -17,21 +17,20 @@ const emit = defineEmits(["closeDelete", "submitDelete"])
         class="w-full border border-gray-500 p-2 rounded mb-4"
       />
 			
-			<div class="flex justify-center items-center gap-3">
-				<button
-					@click="emit('closeDelete')"
-					class="w-full bg-gray-200 py-1 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-300 hover:-translate-y-0.5 transition-all font-bold"
-				>
-					キャンセル
-				</button>
+			<button
+				@click="emit('submitDelete', password)"
+				class="w-full bg-white text-red-500 border border-red-200 font-bold py-1 rounded-lg hover:bg-red-50 hover:-translate-y-0.5 transition-all mb-3"
+			>
+				削除する
+			</button>
+			
+			<button
+				@click="emit('closeDelete')"
+				 class="w-full text-sm text-gray-400 hover:text-gray-600 underline decoration-gray-300 underline-offset-4"
+			>
+				キャンセルして戻る
+			</button>
 				
-				<button
-					@click="emit('submitDelete', password)"
-					class="w-full bg-white text-red-500 border border-red-200 font-bold py-1 rounded-lg hover:bg-red-50 hover:-translate-y-0.5 transition-all"
-				>
-					削除する
-				</button>
-			</div>
 		</div>
 	</div>
 </template>

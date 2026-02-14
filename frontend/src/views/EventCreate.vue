@@ -184,7 +184,7 @@ const timeOptions = computed(() => {
 		
 		<div class="flex flex-col lg:flex-row gap-8 mb-8">
 			
-			<div class="flex-1 min-w-75 bg-gray-100 p-6 rounded-xl shadow-sm border border-gray-100">
+			<div class="flex-1 min-w-75 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
 				
 				<h3 class="text-center text-xl font-bold border-b-2 border-b-blue-500 pb-2 mb-6 text-gray-700">
 					Step1 基本情報
@@ -217,7 +217,7 @@ const timeOptions = computed(() => {
 				
 			</div>
 			
-			<div class="flex-3 min-w-75 bg-gray-100 p-6 rounded-xl shadow-sm border border-gray-100">
+			<div class="flex-3 min-w-75 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
 				
 				<h3 class="text-center text-xl font-bold border-b-2 border-b-blue-500 pb-2 mb-4 text-gray-700">
 					Step2  候補日を選択
@@ -316,7 +316,7 @@ const timeOptions = computed(() => {
 			</div>
 		</div>
 		
-		<div class=" bg-gray-100 p-6 rounded-xl shadow-sm border border-gray-100">
+		<div class=" bg-white p-6 rounded-xl shadow-sm border border-gray-100">
 			<h3 class="text-center text-xl font-bold border-b-2 border-b-blue-500 pb-2 mb-6 text-gray-700">
 					Step3 登録リスト確認
 			</h3>

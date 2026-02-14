@@ -21,6 +21,7 @@ const showModal = ref(false)
 const showDelete = ref(false)
 const showEdit = ref(false)
 const editingUser = ref(null)
+const tempPassword = ref("")
 
 onMounted(async () => {
   try {
@@ -73,6 +74,8 @@ const editUser = async (password) => {
     await axios.post(`http://localhost:3000/api/v1/users/${userId}/authenticate`, {
       password: password
     })
+    
+    tempPassword.value = password
     
     showEdit.value = false
     showModal.value = true
@@ -154,7 +157,8 @@ const deleteUser = async (password) => {
       v-if="showModal" 
       :event="event"
       :editingUser="editingUser"
-      @closeModal="showModal = false, editingUser = null"
+      :editPassword="tempPassword"
+      @closeModal="showModal = false, editingUser = null, tempPassword = ''"
     />
     
     <ShowUrl/>
@@ -168,7 +172,7 @@ const deleteUser = async (password) => {
     <EditModal
       v-if="showEdit === true"
       :userName="editingUser?.name"
-      @closeEdit="showEdit = false"
+      @closeEdit="showEdit = false, editingUser = null, tempPassword = ''"
       @submitEdit="editUser"
       @submitDelete="deleteUser"
     />

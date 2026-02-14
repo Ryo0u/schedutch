@@ -2,5 +2,7 @@
 </script>
 
 <template>
-  <router-view/>
+  <div class="bg-blue-50">
+    <router-view/>
+  </div>
 </template>

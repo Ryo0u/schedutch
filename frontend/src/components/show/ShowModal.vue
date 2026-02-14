@@ -12,6 +12,11 @@ const props = defineProps({
   editingUser: {
     type: Object,
     default: null
+  },
+  
+  editPassword: {
+    type: String,
+    default: ""
   }
 })
 
@@ -30,6 +35,7 @@ onMounted(() => {
   if (isEditMode.value) {
     name.value = props.editingUser.name
     comment.value = props.editingUser.comment
+    password.value = props.editPassword
   }
 })
 
