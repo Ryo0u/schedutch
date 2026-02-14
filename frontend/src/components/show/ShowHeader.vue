@@ -13,7 +13,7 @@ const emit = defineEmits(['openModal', 'deleteEvent'])
 
     <div class="flex-2 bg-white p-4 rounded-lg shadow border border-gray-100">
       <div class="flex  items-baseline justify-between border-b border-gray-300">
-        <h1 class="text-3xl text-gray-800 font-bold pb-2 flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl text-gray-800 font-bold pb-2 flex items-center gap-2">
           <span class="w-1 h-7 bg-blue-500 rounded-full"></span> {{ props.event.title }}
         </h1>
         <p 
@@ -24,12 +24,12 @@ const emit = defineEmits(['openModal', 'deleteEvent'])
           </p>
       </div>
       
-      <div v-if="event.description" class="flex items-start gap-2 mt-3">
-        <span class="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-md whitespace-nowrap mt-1">
+      <div v-if="event.description" class="flex items-baseline gap-2 mt-3">
+        <span class="text-xs sm:text-sm font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded-md whitespace-nowrap mt-1">
         詳細・備考
         </span>
         
-        <p class="text-gray-600 leading-relaxed whitespace-pre-wrap">
+        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">
           {{ props.event.description }}
         </p>
       </div>
@@ -38,7 +38,7 @@ const emit = defineEmits(['openModal', 'deleteEvent'])
     <div class="flex-1 bg-white p-4 rounded-lg shadow border border-gray-100">
       <button 
         @click="emit('openModal')"
-        class="w-full bg-blue-600 text-white text-md font-bold mb-4 py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 hover:-translate-y-1 transition transform"
+        class="w-full bg-blue-600 text-white text-sm sm:text-md font-bold mb-4 py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 hover:-translate-y-1 transition transform"
       >
         <div class="flex justify-center items-center gap-4">
           <span>→</span>

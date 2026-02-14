@@ -115,7 +115,7 @@ const deleteUser = async (password) => {
 
 </script>
 <template>
-  <div v-if="isLoading" class="fixed inset-0 flex flex-col items-center justify-center bg-white">
+  <div v-if="isLoading" class="fixed inset-0 flex flex-col items-center justify-center">
   
     <div class="flex gap-5 mb-4">
       <div class="flex gap-5">
@@ -131,7 +131,7 @@ const deleteUser = async (password) => {
   
   </div>
   
-  <div v-else-if="error" class="fixed inset-0 flex flex-col items-center justify-center p-4 bg-white">
+  <div v-else-if="error" class="fixed inset-0 flex flex-col items-center justify-center p-4">
     <div class="text-blue-800 text-center text-3xl font-bold tracking-tight">
       {{ error }}
     </div>
