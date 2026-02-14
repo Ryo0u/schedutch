@@ -13,7 +13,9 @@ const emit = defineEmits(['openModal', 'deleteEvent'])
 
     <div class="flex-2 bg-white p-4 rounded-lg shadow border border-gray-100">
       <div class="flex  items-baseline justify-between border-b border-gray-300">
-        <h1 class="text-3xl text-gray-800 font-bold pb-2 ">{{ props.event.title }}</h1>
+        <h1 class="text-3xl text-gray-800 font-bold pb-2 flex items-center gap-2">
+          <span class="w-1 h-7 bg-blue-500 rounded-full"></span> {{ props.event.title }}
+        </h1>
         <p 
           @click="emit('deleteEvent')"
           class="text-xs text-gray-400  hover:text-red-600 cursor-pointer transition-colors duration-200"

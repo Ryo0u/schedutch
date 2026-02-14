@@ -177,10 +177,12 @@ const timeOptions = computed(() => {
 </script>
 
 <template>
-	<div class="max-w-6xl mx-auto p-6">
-		<h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
-			イベント新規作成
-		</h2>
+	<div class="max-w-5xl mx-auto p-6">
+		<div class="bg-white p-3 mb-8 rounded-xl shadow-sm">
+			<h2 class="text-2xl font-bold text-gray-700 flex items-center gap-2">
+				<span class="w-1 h-7 bg-blue-500 rounded-full"></span> イベント新規作成
+			</h2>
+		</div>
 		
 		<div class="flex flex-col lg:flex-row gap-8 mb-8">
 			
