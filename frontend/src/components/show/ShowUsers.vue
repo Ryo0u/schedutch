@@ -43,7 +43,7 @@ const emit = defineEmits(["openEdit"])
                     </span>
                   </div>
                     
-                    <div v-if="user.comment" class="relative ml-2 px-3 py-1 bg-white text-gray-600 text-xs sm:text-sm rounded-lg max-w-55 md:max-w-120 lg:max-w-180 border border-gray-400">
+                    <div v-if="user.comment" class="relative ml-2 px-3 py-1 bg-white text-gray-600 text-xs sm:text-sm rounded-lg max-w-45 md:max-w-120 lg:max-w-180 border border-gray-400">
                       <div class="absolute top-1/2 -left-[3.5px] -translate-y-1/2 w-1.5 h-1.5 bg-white rotate-45 border-l border-b border-gray-400"></div>
 
                       <span class="relative z-10">

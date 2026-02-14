@@ -151,7 +151,7 @@ const getStatusSymbol = (user, date, time) => {
                 >
                    <span 
                     v-if="label.isWholeHour && index !== 0 && index !== headerLabels.length - 1" 
-                    class="absolute bottom-1 left-0 transform -translate-x-full pr-0.5 w-4 text-right text-[10px] text-gray-400 font-bold leading-none"
+                    class="absolute bottom-1 left-0 transform -translate-x-full pr-0.5 w-4 text-right text-[8px] sm:text-[10px] text-gray-400 font-bold leading-none"
                   >
                     {{ label.hourOnly }}
                   </span>
