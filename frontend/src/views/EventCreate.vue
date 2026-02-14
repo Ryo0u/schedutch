@@ -143,7 +143,7 @@ const createEvent = async () => {
       }
     })
 
-    const response = await axios.post('http://localhost:3000/api/v1/events', {
+    const response = await axios.post('/api/v1/events', {
       event: {
         title: title.value,
         description: description.value,

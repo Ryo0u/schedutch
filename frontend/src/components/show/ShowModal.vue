@@ -63,7 +63,7 @@ const submitData = async (data) => {
   try {
     if (isEditMode.value) {
       // 予定更新
-      await axios.patch(`http://localhost:3000/api/v1/users/${props.editingUser.id}`, {
+      await axios.patch(`/api/v1/users/${props.editingUser.id}`, {
           user: {
             name: name.value,
             password: password.value,
@@ -76,7 +76,7 @@ const submitData = async (data) => {
       alert("予定を変更しました")
     } else {
       // 新規登録
-      await axios.post(`http://localhost:3000/api/v1/events/${props.event.url_token}/users`, {
+      await axios.post(`/api/v1/events/${props.event.url_token}/users`, {
           user: {
             name: name.value,
             password: password.value,

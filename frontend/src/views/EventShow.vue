@@ -26,7 +26,7 @@ const tempPassword = ref("")
 onMounted(async () => {
   try {
     const token = route.params.url_token
-    const response = await axios.get(`http://localhost:3000/api/v1/events/${token}`)
+    const response = await axios.get(`/api/v1/events/${token}`)
     event.value = response.data
     
   } catch (err) {
@@ -42,7 +42,7 @@ const deleteEvent = async (password) => {
   try {
     const token = route.params.url_token
     
-    await axios.delete(`http://localhost:3000/api/v1/events/${token}`, {
+    await axios.delete(`/api/v1/events/${token}`, {
       data: {password: password}
     })
     
@@ -71,7 +71,7 @@ const editUser = async (password) => {
   try {
     const userId = editingUser.value.id
     
-    await axios.post(`http://localhost:3000/api/v1/users/${userId}/authenticate`, {
+    await axios.post(`/api/v1/users/${userId}/authenticate`, {
       password: password
     })
     
@@ -96,7 +96,7 @@ const deleteUser = async (password) => {
   try {
     const userId = editingUser.value.id
     
-    await axios.delete(`http://localhost:3000/api/v1/users/${userId}`, {
+    await axios.delete(`/api/v1/users/${userId}`, {
       data: { password: password }
     })
     
