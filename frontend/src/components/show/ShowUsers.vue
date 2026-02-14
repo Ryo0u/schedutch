@@ -43,7 +43,7 @@ const emit = defineEmits(["openEdit"])
                     </span>
                   </div>
                     
-                    <div v-if="user.comment" class="relative ml-2 px-3 py-1 bg-white text-gray-600 text-xs sm:text-sm rounded-lg max-w-45 md:max-w-120 lg:max-w-180 border border-gray-400">
+                    <div v-if="user.comment" class="relative ml-2 px-3 py-1 bg-white text-gray-600 text-xs sm:text-sm rounded-lg max-w-30 md:max-w-120 lg:max-w-180 border border-gray-400">
                       <div class="absolute top-1/2 -left-[3.5px] -translate-y-1/2 w-1.5 h-1.5 bg-white rotate-45 border-l border-b border-gray-400"></div>
 
                       <span class="relative z-10">
@@ -54,7 +54,7 @@ const emit = defineEmits(["openEdit"])
                
                 <button
                   @click="emit('openEdit',user)"
-                  class="text-xs text-blue-400 hover:text-blue-500 font-bold border-b border-blue-400 hover:border-b-blue-500 px-1 py-0.5  transition-colors whitespace-nowrap cursor-pointer"
+                  class="text-xs sm:text-xs text-blue-400 hover:text-blue-500 font-bold border-b border-blue-400 hover:border-b-blue-500 px-1 py-0.5  transition-colors whitespace-nowrap cursor-pointer"
                 >
                   予定を編集
                 </button>
