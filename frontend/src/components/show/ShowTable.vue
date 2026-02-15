@@ -158,7 +158,7 @@ const getStatusSymbol = (user, date, time) => {
       
                   <span 
                     v-if="index === headerLabels.length - 2"
-                    class="absolute bottom-1 right-0 w-3 sm:w-4 text-center text-[10px] text-gray-400 font-bold leading-none z-10"
+                    class="absolute bottom-1 right-0 w-3 sm:w-4 text-center text-[8px] sm:text-[10px] text-gray-400 font-bold leading-none z-10"
                   >
                    {{ headerLabels[headerLabels.length - 1]?.hourOnly }}
                   </span>

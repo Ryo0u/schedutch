@@ -179,26 +179,26 @@ defineExpose({ submit })
 	<div class="flex gap-4 sticky top-0 left-0 z-30">
     <button 
       @click="currentMode = STATUS.OK"
-      class="flex items-center gap-2 px-4 rounded-full border transition-all"
+      class="flex items-center gap-2 px-2 sm:px-4 rounded-full border transition-all"
       :class="currentMode === STATUS.OK ? 'bg-blue-50 border-blue-500 text-blue-600 font-bold ring-2 ring-blue-200' : 'bg-white border-gray-500 text-gray-500'"
     >
-      <span class="text-xl">⚪︎</span> 参加
+      <span class="text-md sm:text-xl">⚪︎</span> 参加
     </button>
 
     <button 
       @click="currentMode = STATUS.MAYBE"
-      class="flex items-center gap-2 px-4 rounded-full border transition-all"
+      class="flex items-center gap-2 px-2 sm:px-4 rounded-full border transition-all"
       :class="currentMode === STATUS.MAYBE ? 'bg-yellow-50 border-yellow-500 text-yellow-600 font-bold ring-2 ring-yellow-200' : 'bg-white border-gray-500 text-gray-500'"
     >
-      <span class="text-xl">△</span> 未定
+      <span class="text-md sm:text-xl">△</span> 未定
     </button>
 
     <button 
       @click="currentMode = STATUS.NG"
-      class="flex items-center gap-2 px-4 rounded-full border transition-all"
+      class="flex items-center gap-2 px-2 sm:px-4 rounded-full border transition-all"
       :class="currentMode === STATUS.NG ? 'bg-gray-50 border-gray-500 text-gray-600 font-bold ring-2 ring-gray-200' : 'bg-white border-gray-500 text-gray-500'"
     >
-      <span class="text-xl">×</span> 不参加
+      <span class="text-md sm:text-xl">×</span> 不参加
     </button>
   </div>
 	
@@ -208,10 +208,10 @@ defineExpose({ submit })
 				<table class="border-separate border-spacing-0 table-fixed">
 					<tbody v-for="date in candidateDates" :key="date">
 							
-						<tr class="h-6">
+						<tr class="h-5 sm:h-6">
 							<td 
 								rowspan="2" 
-								class=" sticky left-0 z-20 py-1 px-2 bg-white text-xs font-bold text-gray-700 whitespace-nowrap w-20 text-center border-y-2 border-l-2 border-r-2 border-gray-400"
+								class=" sticky left-0 z-20 py-1 px-1 sm:px-2 bg-white text-[10px] sm:text-xs font-bold text-gray-700 whitespace-nowrap w-20 text-center border-y-2 border-l-2 border-r-2 border-gray-400"
 							>
 								{{ formatDateHeader(date) }}
 							</td>
@@ -223,19 +223,19 @@ defineExpose({ submit })
 								:class="[
 									index === headerLabels.length - 1 
 										? 'w-0 border-r-2 rounded-tr-lg overflow-hidden' 
-										: 'w-4'
+										: 'w-3 sm:w-4'
 								]" 
 							>
 									<span 
 									v-if="label.isWholeHour && index !== 0 && index !== headerLabels.length - 1" 
-									class="absolute bottom-1 left-0 transform -translate-x-full pr-0.5 w-4 text-right text-[10px] text-gray-400 font-bold leading-none"
+									class="absolute bottom-1 left-0 transform -translate-x-full pr-0.5 w-4 text-right text-[8px] sm:text-[10px] text-gray-400 font-bold leading-none"
 								>
 									{{ label.hourOnly }}
 								</span>
 		
 								<span 
 									v-if="index === headerLabels.length - 2"
-									class="absolute bottom-1 right-0 w-4 text-center text-[10px] text-gray-400 font-bold leading-none z-10"
+									class="absolute bottom-1 right-0 w-4 text-center text-[8px] sm:text-[10px] text-gray-400 font-bold leading-none z-10"
 								>
 									{{ headerLabels[headerLabels.length - 1]?.hourOnly }}
 								</span>
@@ -252,7 +252,7 @@ defineExpose({ submit })
 								@mousedown.prevent="startDrag(date, time)"
                 @mouseenter="onMouseEnter(date, time)"
 								
-								class="border-b-2 border-gray-400 h-6 p-0 text-center relative w-4 text-xs"
+								class="border-b-2 border-gray-400 h-5 sm:h-6 p-0 text-center relative w-3 sm:w-4 text-xs sm:text-xs"
 								:class="[
 									isSlotActive(date, time)
 										? (	getStatus(date, time) === STATUS.OK ? 'bg-blue-300 text-white' :
@@ -275,12 +275,12 @@ defineExpose({ submit })
 
 							<td 
    					 		v-if="headerLabels.length > timeSlots.length" 
-    						class="h-6 p-0 border-b-2 border-r-2 border-gray-400 rounded-br-lg overflow-hidden w-0 bg-white"
+    						class="h-5 sm:h-6 p-0 border-b-2 border-r-2 border-gray-400 rounded-br-lg overflow-hidden w-0 bg-white"
   						></td>
 							
 						</tr>
 		
-						<tr class="h-4 border-none">
+						<tr class="h-2.5 sm:h-4 border-none">
 							<td :colspan="headerLabels.length + 1" class="border-none bg-transparent"></td>
 						</tr>
 		
