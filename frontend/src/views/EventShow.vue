@@ -91,7 +91,6 @@ const editUser = async (password) => {
 }
 
 const deleteUser = async (password) => {
-  if (!confirm('本当に削除しますか？')) return;
   
   try {
     const userId = editingUser.value.id
