@@ -6,8 +6,9 @@ import { useRoute, useRouter } from "vue-router";
 import ShowHeader from '@/components/show/ShowHeader.vue'
 import ShowUsers from '@/components/show/ShowUsers.vue'
 import ShowTable from '@/components/show/ShowTable.vue'
-import ShowModal from '@/components/show/ShowModal.vue'
+import ExtractTime from "@/components/show/ExtractTime.vue"
 import ShowUrl from "@/components/show/ShowUrl.vue"
+import ShowModal from '@/components/show/ShowModal.vue'
 import DeleteModal from "@/components/show/DeleteModal.vue";
 import EditModal from "@/components/show/EditModal.vue";
 
@@ -152,6 +153,12 @@ const deleteUser = async (password) => {
       :event="event"
     />
     
+    <ExtractTime
+      :event="event"
+    />
+
+    <ShowUrl/>
+    
     <ShowModal
       v-if="showModal" 
       :event="event"
@@ -159,8 +166,6 @@ const deleteUser = async (password) => {
       :editPassword="tempPassword"
       @closeModal="showModal = false, editingUser = null, tempPassword = ''"
     />
-    
-    <ShowUrl/>
     
     <DeleteModal
       v-if="showDelete === true"
