@@ -5,6 +5,8 @@ const props = defineProps({
   event: { type: Object, required: true }
 })
 
+const includeTriangle = ref(false)
+
 const selectedUsers = ref([])
 const extractedTimes = ref("")
 
@@ -19,12 +21,17 @@ const extractTimes = () => {
 	const memberNames = targetUsers.map(u => u.name).join("、")
 	const namesHeader = `【参加者】\n${memberNames}\n`
 	
-	const baseAvailableTimes = targetUsers[0].responses.filter(res => res.status === 1).map(res => res.start_time)
+	
+	const isOK = (status) => {
+		return includeTriangle.value ? (status === 1 || status === 2) : status === 1
+	}
+	
+	const baseAvailableTimes = targetUsers[0].responses.filter(res => isOK(res.status)).map(res => res.start_time)
 	
 	const okTimes = baseAvailableTimes.filter(time =>{
 		return targetUsers.slice(1).every(u => {
 			const res = u.responses.find(r => r.start_time === time)
-			return res && res.status === 1
+			return res && isOK(res.status)
 		})
 	}).sort()
 	
@@ -71,14 +78,14 @@ const getNextSlot = (timeStr) => {
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
- const formatDate = (dateStr) => {
+const formatDate = (dateStr) => {
 	const date = new Date(dateStr)
-	
+
 	const dayLabels = ['日', '月', '火', '水', '木', '金', '土']
 	const day = dayLabels[date.getDay()]
-	
+
 	return `${date.getMonth() + 1}/${date.getDate()}(${day})`
- }
+}
 
 </script>
 
@@ -109,13 +116,28 @@ const getNextSlot = (timeStr) => {
           >
             抽出する
           </button>
+					
+					<label class="flex items-center cursor-pointer mt-3">
+            <div class="relative">
+              <input type="checkbox" v-model="includeTriangle" class="sr-only peer">
+              <div class="w-10 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-blue-500 transition-colors"></div>
+              <div class="absolute left-1 top-1 bg-white border border-gray-300 rounded-full h-4 w-4 transition-transform peer-checked:translate-x-4 peer-checked:border-white"></div>
+            </div>
+						<span class="ml-2 text-sm text-yellow-600 bg-yellow-300 px-0.5 font-medium select-none">▲</span>
+            <span class="ml-1 text-sm text-gray-500 font-medium select-none">を含める</span>
+          </label>
       	</div>
 				
-				<div class="sm:w-2/3">
-					<p class="text-xs font-bold text-gray-400 mb-2">全員⚫︎の時間帯</p>
+				<div class="sm:w-2/3 flex flex-col">
+					<p class="text-xs font-medium text-gray-400 mb-2">
+						全員
+						<span v-if="includeTriangle">⚫︎または▲</span>
+						<span v-else>⚫︎</span>
+						の時間帯
+					</p>
 					<textarea 
 						readonly 
-						class="w-full h-40 p-3 bg-gray-50 border rounded-lg text-sm font-mono focus:outline-none"
+						class="w-full grow  p-3 bg-gray-50 border rounded-lg text-sm font-mono focus:outline-none"
 						:value="extractedTimes"
 					></textarea>
       	</div>
