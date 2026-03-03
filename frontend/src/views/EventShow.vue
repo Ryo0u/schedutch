@@ -99,9 +99,10 @@ const deleteUser = async (password) => {
     await axios.delete(`/api/v1/users/${userId}`, {
       data: { password: password }
     })
+    removeUserFromList(userId)
     
     showEdit.value = false
-    location.reload()
+    editingUser.value = null
     
   } catch (err) {
      console.error(err)
@@ -113,6 +114,27 @@ const deleteUser = async (password) => {
   }
 }
 
+const updateUserList = (updatedUser) => {
+  const index = event.value.users.findIndex(u => u.id === updatedUser.id)
+  
+  if (index !== -1) {
+    // 編集の場合
+    event.value.users.splice(index, 1, updatedUser)
+  } else {
+    // 新規の場合
+    event.value.users.push(updatedUser)
+  }
+  
+  event.value.users = [...event.value.users]
+  
+  showModal.value = false
+  editingUser.value = null
+  tempPassword.value = ''
+}
+
+const removeUserFromList = (deletedUserId) => {
+  event.value.users = event.value.users.filter(u => u.id !== deletedUserId)
+}
 </script>
 <template>
   <div v-if="isLoading" class="fixed inset-0 flex flex-col items-center justify-center bg-white">
@@ -164,6 +186,7 @@ const deleteUser = async (password) => {
       :event="event"
       :editingUser="editingUser"
       :editPassword="tempPassword"
+      @userUpdated="updateUserList"
       @closeModal="showModal = false, editingUser = null, tempPassword = ''"
     />
     

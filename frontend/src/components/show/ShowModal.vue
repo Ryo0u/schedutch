@@ -20,7 +20,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(["closeModal"])
+const emit = defineEmits(["closeModal", "userUpdated"])
 
 const isExpanded = ref(true)
 const isEditMode = computed(() => !!props.editingUser)
@@ -63,9 +63,11 @@ const submitData = async (data) => {
   }).filter(res => res.status !== 1)
   
   try {
+    let response
+    
     if (isEditMode.value) {
       // 予定更新
-      await axios.patch(`/api/v1/users/${props.editingUser.id}`, {
+      response = await axios.patch(`/api/v1/users/${props.editingUser.id}`, {
           user: {
             name: name.value,
             password: password.value,
@@ -74,11 +76,9 @@ const submitData = async (data) => {
           responses: formattedResponses
         }
       )
-      
-      alert("予定を変更しました")
     } else {
       // 新規登録
-      await axios.post(`/api/v1/events/${props.event.url_token}/users`, {
+      response = await axios.post(`/api/v1/events/${props.event.url_token}/users`, {
           user: {
             name: name.value,
             password: password.value,
@@ -87,16 +87,13 @@ const submitData = async (data) => {
           responses: formattedResponses
         }
       )
-      
-      alert("予定を登録しました")
     }
-    
+    emit("userUpdated", response.data.user)
     emit("closeModal")
-    
-    location.reload()
     
   } catch (e) {
     console.error(e)
+    isLoading.value = false
   }
 }
 </script>
