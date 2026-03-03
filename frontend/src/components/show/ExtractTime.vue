@@ -182,7 +182,7 @@ const copyText = async () => {
 					</div>
 					<textarea 
 						readonly 
-						class="w-full grow  p-3 bg-gray-50 border rounded-lg text-sm font-mono focus:outline-none text-gray-700 placeholder-gray-400"
+						class="w-full h-50 sm:grow  p-3 bg-gray-50 border rounded-lg text-sm font-mono focus:outline-none text-gray-700 placeholder-gray-400"
 						:value="extractedTimes"
 						:placeholder="`左のリストから予定を合わせたいメンバーを選び、「抽出する」ボタンを押してください。\n抽出した結果は、右上のコピーボタンからコピーしてLINEなどに貼り付けることができます。`"
 					></textarea>

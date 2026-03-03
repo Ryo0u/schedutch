@@ -385,7 +385,7 @@ const timeOptions = computed(() => {
         <button 
           @click="createEvent"
           :disabled="isSubmitting || !title || !password || !candidates.length"
-          class="w-full lg:w-auto bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold py-3 px-12 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full lg:w-auto bg-blue-600 hover:bg-blue-700 text-white text-md sm:text-lg font-bold py-3 px-12 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span v-if="isSubmitting">作成中... </span>
           <span v-else>イベントを作成して公開！</span>
