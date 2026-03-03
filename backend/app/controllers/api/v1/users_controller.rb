@@ -5,18 +5,26 @@ class Api::V1::UsersController < ApplicationController
       ActiveRecord::Base.transaction do
         user = event.users.create!(user_params)
         
-        params[:responses].each do |res_data|
+        all_candidates = event.candidates.to_a
+        
+        responses_to_insert = params[:responses].map do |res_data|
           target_time = res_data[:start_time]
-          candidate = event.candidates.find_by("start_time <= ? AND end_time >= ?", target_time, target_time)
+          
+          candidate = all_candidates.find { |c| c.start_time <= target_time && c.end_time >= target_time }
           
           if candidate
-            user.responses.create!(
-              candidate: candidate,
+            {
+              user_id: user.id,
+              candidate_id: candidate.id,
               start_time: target_time,
-              status: res_data[:status]
-            )
+              status: res_data[:status],
+              created_at: Time.current,
+              updated_at: Time.current
+            }
           end
-        end
+        end.compact
+        
+        Response.insert_all(responses_to_insert) if responses_to_insert.present?
       end
       
       render json: { message: '登録しました' }, status: :created
