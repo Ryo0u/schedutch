@@ -9,7 +9,7 @@ const props = defineProps({
 const emit = defineEmits(['openModal', 'deleteEvent'])
 </script>
 <template>
-  <div class=" flex flex-col lg:flex-row gap-5  mb-6">
+  <div class=" flex flex-col md:flex-row gap-5  mb-6">
 
     <div class="flex-2 bg-white p-4 rounded-lg shadow border border-gray-100">
       <div class="flex  items-baseline justify-between border-b border-gray-300">
