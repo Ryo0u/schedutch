@@ -86,7 +86,7 @@ const getStatusClass = (user, date, time) => {
   
   const target = `${date}T${time}`
   const response = user.responses.find(res => res.start_time.startsWith(target))
-  const status = response ? response.status : 0
+  const status = response ? response.status : 1
   
   switch (status) {
     case 1:
@@ -102,9 +102,11 @@ const getStatusClass = (user, date, time) => {
 
 const getStatusSymbol = (user, date, time) => {
   
+  if (!isSlotActive(date, time)) return ""
+  
   const target = `${date}T${time}`
   const response = user.responses.find(res => res.start_time.startsWith(target))
-  const status = response ? response.status : 0
+  const status = response ? response.status : 1
   
   switch (status) {
     case 1: return '⚫︎'

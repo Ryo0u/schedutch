@@ -165,9 +165,17 @@ watch(() => [props.event, props.editingUser], () => {
 
 
 const submit = () => {
-	const payload = {
-		responses: userResponses
-	}
+	const filteredResponses = {}
+  
+  Object.entries(userResponses).forEach(([key, status]) => {
+    if (status !== STATUS.OK) {
+      filteredResponses[key] = status
+    }
+  })
+  
+  const payload = {
+    responses: filteredResponses
+  }
 	
 	emit("submit-data", payload)
 }

@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   def create
     event = Event.find_by!(url_token: params[:event_id])
+    user = nil
     
     ActiveRecord::Base.transaction do
       user = event.users.create!(user_params)
@@ -27,7 +28,12 @@ class Api::V1::UsersController < ApplicationController
       Response.insert_all(responses_to_insert) if responses_to_insert.present?
     end
     
-    render json: { message: '登録しました' }, status: :created
+    user.reload
+    
+    render json: { 
+      message: '登録しました', 
+      user: user.as_json(include: :responses) 
+    }, status: :created
   end
   
   def update
@@ -35,7 +41,7 @@ class Api::V1::UsersController < ApplicationController
     
     ActiveRecord::Base.transaction do
       user.update!(user_params)
-      user.responses.destroy_all
+      user.responses.delete_all
       
       event = user.event
       all_candidates = event.candidates.to_a
@@ -60,7 +66,12 @@ class Api::V1::UsersController < ApplicationController
       Response.insert_all(responses_to_insert) if responses_to_insert.present?
     end
     
-    render json: { message: '予定を更新しました' }, status: :ok
+    user.reload
+    
+    render json: { 
+      message: '予定を更新しました', 
+      user: user.as_json(include: :responses) 
+    }, status: :ok
   rescue => e
     render json: { error: '更新に失敗しました', details: e.message }, status: :unprocessable_entity
   end

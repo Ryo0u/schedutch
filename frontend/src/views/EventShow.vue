@@ -15,8 +15,11 @@ import EditModal from "@/components/show/EditModal.vue";
 const route = useRoute()
 const router = useRouter()
 const event = ref(null)
-const isLoading = ref(true)
 const error = ref(null)
+
+const isLoading = ref(true)
+const isEventDeleting = ref(false)
+const isEditing = ref(null)
 
 const showModal = ref(false)
 const showDelete = ref(false)
@@ -40,6 +43,7 @@ onMounted(async () => {
 })
 
 const deleteEvent = async (password) => {
+  isEventDeleting.value = true
   try {
     const token = route.params.url_token
     
@@ -48,6 +52,8 @@ const deleteEvent = async (password) => {
     })
     
     alert("イベントを排除しました")
+    
+    isEventDeleting.value = false
     showDelete.value = false
     editingUser.value = null
     router.push("/")
@@ -60,6 +66,8 @@ const deleteEvent = async (password) => {
     } else {
       alert('削除に失敗しました')
     }
+    
+    isEventDeleting.value = false
   }
 }
 
@@ -69,6 +77,7 @@ const editRequest = (user) => {
 }
 
 const editUser = async (password) => {
+  isEditing.value = "edit"
   try {
     const userId = editingUser.value.id
     
@@ -78,6 +87,7 @@ const editUser = async (password) => {
     
     tempPassword.value = password
     
+    isEditing.value = null
     showEdit.value = false
     showModal.value = true
     
@@ -88,20 +98,24 @@ const editUser = async (password) => {
     } else {
       alert('通信に失敗しました')
     }
+    
+    isEditing.value = null
   }
 }
 
 const deleteUser = async (password) => {
-  
+  isEditing.value = "delete"
   try {
     const userId = editingUser.value.id
     
     await axios.delete(`/api/v1/users/${userId}`, {
       data: { password: password }
     })
+    removeUserFromList(userId)
     
+    isEditing.value = null
     showEdit.value = false
-    location.reload()
+    editingUser.value = null
     
   } catch (err) {
      console.error(err)
@@ -110,9 +124,32 @@ const deleteUser = async (password) => {
     } else {
       alert('通信に失敗しました')
     }
+    
+    isEditing.value = null
   }
 }
 
+const updateUserList = (updatedUser) => {
+  const index = event.value.users.findIndex(u => u.id === updatedUser.id)
+  
+  if (index !== -1) {
+    // 編集の場合
+    event.value.users.splice(index, 1, updatedUser)
+  } else {
+    // 新規の場合
+    event.value.users.push(updatedUser)
+  }
+  
+  event.value.users = [...event.value.users]
+  
+  showModal.value = false
+  editingUser.value = null
+  tempPassword.value = ''
+}
+
+const removeUserFromList = (deletedUserId) => {
+  event.value.users = event.value.users.filter(u => u.id !== deletedUserId)
+}
 </script>
 <template>
   <div v-if="isLoading" class="fixed inset-0 flex flex-col items-center justify-center bg-white">
@@ -164,11 +201,13 @@ const deleteUser = async (password) => {
       :event="event"
       :editingUser="editingUser"
       :editPassword="tempPassword"
+      @userUpdated="updateUserList"
       @closeModal="showModal = false, editingUser = null, tempPassword = ''"
     />
     
     <DeleteModal
       v-if="showDelete === true"
+      :isDeleting="isEventDeleting"
       @closeDelete="showDelete = false"
       @submitDelete="deleteEvent"
     />
@@ -176,6 +215,7 @@ const deleteUser = async (password) => {
     <EditModal
       v-if="showEdit === true"
       :userName="editingUser?.name"
+      :isEditing="isEditing"
       @closeEdit="showEdit = false, editingUser = null, tempPassword = ''"
       @submitEdit="editUser"
       @submitDelete="deleteUser"
