@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed} from "vue"
+import {ref} from "vue"
 
 const props = defineProps({
   event: { type: Object, required: true }
@@ -47,22 +47,31 @@ const extractTimes = () => {
 		const date = isoString.split("T")[0]
 		const time = isoString.split("T")[1].substring(0, 5)
 		
+		const isTriangle = targetUsers.some(u => {
+			const res = u.responses.find(r => r.start_time === isoString)
+			return res && res.status === 2
+		})
+		
 		if (!current) {
-			current = {date, start: time, end: time}
+			current = {date, start: time, end: time, hasTriangle: isTriangle}
 		} else {
 			if (current.date === date && getNextSlot(current.end) === time) {
 				current.end= time
+				if (isTriangle) current.hasTriangle = true
 			} else {
 				if (!dayResult[current.date]) dayResult[current.date] = []
-				dayResult[current.date].push(`${current.start} 〜 ${getNextSlot(current.end)}`)
-				current = {date, start: time, end: time}
+				const mark = current.hasTriangle ? "(▲)" : ""
+				dayResult[current.date].push(`${current.start} 〜 ${getNextSlot(current.end)}${mark}`)
+				
+				current = {date, start: time, end: time, hasTriangle: isTriangle}
 			}
 		}
 	})
 	
 	if (current) {
     if (!dayResult[current.date]) dayResult[current.date] = []
-    dayResult[current.date].push(`${current.start} 〜 ${getNextSlot(current.end)}`)
+		const mark = current.hasTriangle ? "(▲)" : ""
+    dayResult[current.date].push(`${current.start} 〜 ${getNextSlot(current.end)}${mark}`)
   }
 	
 	const formatedTimes = Object.keys(dayResult).map(dateStr => {
