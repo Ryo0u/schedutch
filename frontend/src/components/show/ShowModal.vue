@@ -60,7 +60,7 @@ const submitData = async (data) => {
       start_time: `${time}:00`,
       status: status
     }
-  })
+  }).filter(res => res.status !== 1)
   
   try {
     if (isEditMode.value) {

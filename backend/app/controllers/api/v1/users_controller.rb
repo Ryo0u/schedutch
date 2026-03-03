@@ -35,7 +35,7 @@ class Api::V1::UsersController < ApplicationController
     
     ActiveRecord::Base.transaction do
       user.update!(user_params)
-      user.responses.destroy_all
+      user.responses.delete_all
       
       event = user.event
       all_candidates = event.candidates.to_a

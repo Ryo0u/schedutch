@@ -23,18 +23,20 @@ const extractTimes = () => {
 	const memberNames = targetUsers.map(u => u.name).join("、")
 	const namesHeader = `【参加者】\n${memberNames}\n`
 	
+	// 全ての候補時間を用意
+	const allActiveSlots = []
+  	props.event.candidates.forEach(c => {
+		let current = new Date(c.start_time)
+		const end = new Date(c.end_time)
+		
+		while (current < end) {
+		allActiveSlots.push(current.toISOString())
+		current.setMinutes(current.getMinutes() + 30)
+		}
+	})
 	
-	const isOK = (status) => {
-		return includeTriangle.value ? (status === 1 || status === 2) : status === 1
-	}
-	
-	const baseAvailableTimes = targetUsers[0].responses.filter(res => isOK(res.status)).map(res => res.start_time)
-	
-	const okTimes = baseAvailableTimes.filter(time =>{
-		return targetUsers.slice(1).every(u => {
-			const res = u.responses.find(r => r.start_time === time)
-			return res && isOK(res.status)
-		})
+	const okTimes = allActiveSlots.filter(time =>{
+		return targetUsers.every(u => isOK(u, time))
 	}).sort()
 	
 	if (okTimes.length === 0) {
@@ -81,6 +83,13 @@ const extractTimes = () => {
 	})
 	
 	extractedTimes.value = namesHeader + `【日程】\n` + formatedTimes.join("\n")
+}
+
+const isOK = (user, isoTime) => {
+  const res = user.responses.find(r => r.start_time === isoTime)
+  const status = res ? res.status : 1
+	
+  return includeTriangle.value ? (status === 1 || status === 2) : status === 1
 }
 
 const getNextSlot = (timeStr) => {
@@ -152,7 +161,6 @@ const copyText = async () => {
 				<div class="sm:w-2/3 flex flex-col">
 					<div class="flex justify-between items-center mb-2">
 						<p class="text-xs font-medium text-gray-400">
-							全員
 							<span v-if="includeTriangle">⚫︎または▲</span>
 							<span v-else>⚫︎</span>
 							の時間帯
