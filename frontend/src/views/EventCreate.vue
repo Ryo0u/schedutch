@@ -212,7 +212,7 @@ const timeOptions = computed(() => {
 				<div class="mb-3">
 					<label class="block font-bold mb-2 text-gray-600 after:ml-0.5 after:text-red-500 after:content-['*']">編集用パスワード</label>
 					<input 
-						v-model="password" type="password"
+						v-model="password" type="text"
 						class="w-full p-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
 					>
 				</div>
