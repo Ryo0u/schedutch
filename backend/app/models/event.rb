@@ -1,9 +1,12 @@
 class Event < ApplicationRecord
   has_secure_password
   
-  has_many :candidates, dependent: :destroy
+  
+  has_many :users
+  has_many :candidates
+  has_many :responses, through: :users
+  
   accepts_nested_attributes_for :candidates, allow_destroy: true
-  has_many :users, dependent: :destroy
   
   validates :title, presence: true
   validates :url_token, presence: true, uniqueness: true

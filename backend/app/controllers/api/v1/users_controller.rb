@@ -41,7 +41,7 @@ class Api::V1::UsersController < ApplicationController
     
     ActiveRecord::Base.transaction do
       user.update!(user_params)
-      user.responses.delete_all
+      Response.where(user_id: user.id).delete_all
       
       event = user.event
       all_candidates = event.candidates.to_a
@@ -90,7 +90,9 @@ class Api::V1::UsersController < ApplicationController
     user = User.find(params[:id])
     
     if user.authenticate(params[:password])
-      user.destroy!
+      Response.where(user_id: user.id).delete_all
+      user.delete
+      
       render json: { message: "削除しました" }, status: :ok
     else
       render json: {message: 'パスワードが間違っています'}, status: :unauthorized
