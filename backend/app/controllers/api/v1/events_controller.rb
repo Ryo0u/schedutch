@@ -27,9 +27,9 @@ class Api::V1::EventsController < ApplicationController
     event = Event.find_by(url_token: params[:id])
     
     if event.authenticate(params[:password])
-      Response.where(user_id: event.users.select(:id)).delete_all
-      event.users.delete_all
-      event.candidates.delete_all
+      Response.where(user_id: User.where(event_id: event.id).select(:id)).delete_all
+      User.where(event_id: event.id).delete_all
+      Candidate.where(event_id: event.id).delete_all
       event.delete
       
       render json: {message: "削除しました"}, status: :ok
