@@ -114,6 +114,7 @@ const submitData = async (data) => {
         
         <div class="flex items-baseline gap-2 shrink-0">
           <button 
+            :disabled="isLoading"
             @click.stop="toggleMinimize"
             class="text-md sm:text-xl text-gray-400 hover:text-gray-600 w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition cursor-pointer"
           >
@@ -121,6 +122,7 @@ const submitData = async (data) => {
           </button>
           
           <button
+            :disabled="isLoading"
             @click="emit('closeModal')"
             class="text-lg sm:text-2xl text-gray-400 hover:text-gray-600 w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition pb-1.5  cursor-pointer"
           >
@@ -169,7 +171,7 @@ const submitData = async (data) => {
               class="w-full text-white text-md font-bold mt-3 py-3 px-6 rounded-full shadow-lg transition transform flex justify-center items-center"
               :class="[
                 (isLoading || !name || !password)
-                  ? 'bg-blue-300 cursor-not-allowed'
+                  ? 'bg-gray-300 cursor-not-allowed'
                   : 'bg-blue-400 hover:bg-blue-500 hover:-translate-y-1'
               ]"
               :disabled="isLoading || !name || !password"
