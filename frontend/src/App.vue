@@ -34,7 +34,7 @@
     </div>
   </header>
   
-  <div class="min-h-screen bg-slate-50 relative overflow-hidden">
+  <div class="min-h-screen bg-slate-100 relative overflow-hidden">
     <div class="absolute inset-0 z-0 opacity-[0.15]" 
         style="background-image: radial-gradient(#3b82f6 1.5px, transparent 1.5px); background-size: 24px 24px;">
     </div>
