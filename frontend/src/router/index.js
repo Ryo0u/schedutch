@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EventCreate from '../views/EventCreate.vue'
-import EventShow from '../views/EventShow.vue'
+import TopPage from '@/views/TopPage.vue'
+import EventCreate from '@/views/EventCreate.vue'
+import EventShow from '@/views/EventShow.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'TopPage',
+    component: TopPage
+  },
+  {
+    path: '/new',
+    name: 'EventCreate',
     component: EventCreate
   },
   {
