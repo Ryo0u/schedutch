@@ -29,7 +29,7 @@ const emit = defineEmits(["closeEdit", "submitEdit", "submitDelete"])
         type="text" 
         placeholder="パスワード"
         class="w-full border border-gray-500 p-2 rounded mb-4"
-        :disabled="isEditing"
+        :disabled="isEditing !== null"
       	/>
 			</div>
 				
@@ -82,6 +82,7 @@ const emit = defineEmits(["closeEdit", "submitEdit", "submitDelete"])
       </div>
       
       <button
+        :disabled="isEditing !== null"
         @click="emit('closeEdit')"
         class="w-full text-sm text-gray-400 hover:text-gray-600 underline decoration-gray-300 underline-offset-4 py-2"
       >

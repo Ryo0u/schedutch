@@ -23,6 +23,7 @@ const emit = defineEmits(["closeDelete", "submitDelete"])
         type="text" 
         placeholder="パスワード"
         class="w-full border border-gray-500 p-2 rounded mb-4"
+				:disabled="isDeleting"
       />
 			
 			<button
@@ -49,6 +50,7 @@ const emit = defineEmits(["closeDelete", "submitDelete"])
 			</button>
 			
 			<button
+				:disabled="isDeleting"
 				@click="emit('closeDelete')"
 				 class="w-full text-sm text-gray-400 hover:text-gray-600 underline decoration-gray-300 underline-offset-4"
 			>

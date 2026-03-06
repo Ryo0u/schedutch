@@ -267,7 +267,7 @@ defineExpose({ submit })
 												getStatus(date, time) === STATUS.MAYBE ? 'bg-yellow-300 text-yellow-600' :
 												getStatus(date, time) === STATUS.NG ? 'bg-gray-300 text-gray-500' :
 												'bg-white hover:bg-gray-50')
-										: 'bg-gray-200 cursor-not-allowed',
+										: 'bg-gray-200',
 										
 										(isSlotActive(date, time) && index !== 0) ? 'border-l border-l-gray-300' : ''
 								]"
