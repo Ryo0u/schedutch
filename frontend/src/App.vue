@@ -6,7 +6,7 @@
     <div class="max-w-5xl mx-auto px-4 h-16 sm:h-20 flex items-center justify-between">
       
       <router-link to="/" class="flex items-center transition-transform hover:-translate-y-0.5 hover:opacity-80 shrink-0">
-        <img src="@/assets/AppLogo.png" class="h-13 sm:h-18 w-auto object-contain" alt="SCHEDUTCH" />
+        <img src="@/assets/images/AppLogo.png" class="h-13 sm:h-18 w-auto object-contain" alt="SCHEDUTCH" />
       </router-link>
 
       <div class="flex items-center gap-3 sm:gap-6">
