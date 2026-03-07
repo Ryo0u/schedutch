@@ -5,7 +5,7 @@ import { ref } from 'vue'
 <template>
   <div class="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-100 font-sans text-gray-800">
     
-    <section class="relative w-full mx-auto px-4 pt-25 sm:pt-40 pb-20 sm:pb-52 text-center mb-5 bg-cover bg-center bg-no-repeat"
+    <section class="relative w-full mx-auto px-4 pt-30 sm:pt-40 pb-20 sm:pb-52 text-center mb-5 bg-cover bg-center bg-no-repeat"
              style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');"
     >
       <div class="absolute inset-0 bg-gray-900/70 z-0"></div>
@@ -96,19 +96,14 @@ import { ref } from 'vue'
 		
 		<div class="pb-20 sm:pb-52"></div>
 
-    <section class="w-full bg-blue-500/95 backdrop-blur-sm py-5 sm:py-10 landscape:py-3 text-center px-4 fixed bottom-0 left-0 z-50 border-t border-white/10">
-      <div class="max-w-5xl mx-auto flex flex-col landscape:flex-row items-center justify-center gap-3 sm:gap-6 landscape:gap-8">
-        <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-6 landscape:mb-0">
-          さっそく予定を合わせてみましょう
-        </h2>
-
-        <router-link 
-          to="/new" 
-          class="inline-flex items-center justify-center bg-white text-blue-500 text-sm sm:text-lg font-bold px-8 py-3 sm:px-10 sm:py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95"
-        >
-          新しく予定を作成する
-        </router-link>
-      </div>
+    <section class="w-full bg-blue-500 py-5 sm:py-10 text-center px-4 fixed bottom-0 left-0 z-10 landscape:hidden">
+      <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-6">さっそく予定を合わせてみましょう</h2>
+      <router-link 
+        to="/new" 
+        class="inline-flex items-center justify-center bg-white text-blue-500 text-md sm:text-lg font-bold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50 transition-all duration-300 active:scale-95"
+      >
+        新しく予定を作成する
+      </router-link>
     </section>
 
   </div>
