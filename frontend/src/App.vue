@@ -49,7 +49,7 @@ const shareApp = async () => {
             </svg>
             Top
           </span>
-          <span class="text-[10px] text-gray-400 font-medium mt-0.5 group-hover:text-blue-400 transition-colors">トップ</span>
+          <span class="hidden sm:block text-[10px] text-gray-400 font-medium mt-0.5 group-hover:text-blue-400 transition-colors">トップ</span>
         </router-link>
         
         <router-link to="/new" class="group flex flex-col items-center justify-center bg-white text-gray-700 px-4 py-1.5 sm:px-10 rounded-full shadow-sm border border-gray-200 hover:border-blue-300 hover:text-blue-600 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 active:scale-95 leading-tight">
@@ -59,7 +59,7 @@ const shareApp = async () => {
             </svg>
             New
           </span>
-          <span class="text-[10px] text-gray-400 font-medium mt-0.5 group-hover:text-blue-400 transition-colors">予定作成</span>
+          <span class="hidden sm:block text-[10px] text-gray-400 font-medium mt-0.5 group-hover:text-blue-400 transition-colors">予定作成</span>
         </router-link>
 
         <div class="hidden sm:block w-px h-8 bg-gray-200"></div>

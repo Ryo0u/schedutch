@@ -11,15 +11,16 @@ import { ref } from 'vue'
       <div class="absolute inset-0 bg-gray-900/70 z-0"></div>
       
       <div class="relative z-10 max-w-5xl mx-auto px-4">
-        <h1 class="animate-fade-in-up text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
-          全員の空いてる時間が、<br class="block" />
+        <h1 class="animate-fade-in-up text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
+          全員の空いてる時間が<br class="block" />
           <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-600">一瞬でわかる。</span>
         </h1>
         
         <p class="animate-fade-in-up animation-delay-200 text-sm md:text-xl text-white mb-2 max-w-2xl mx-auto leading-relaxed">
-          SCHEDUTCHは、「大量の予定」を調整するための特化型ツール<br class="block" />
+          SCHEDUTCHは<br class="block" />
+          「大量の予定」を調整するための特化型ツール<br class="block" />
           メンバーの回答を考慮して最適な時間帯を自動抽出<br class="block" />
-          どんなに多い候補日でも、全員の回答を一瞬で集計・視覚化<br class="block" />
+          どんなに多い候補日でも、全員の回答を集計・視覚化<br class="block" />
           結果は1クリックでコピーして参加者に共有
         </p>
         
@@ -95,14 +96,19 @@ import { ref } from 'vue'
 		
 		<div class="pb-20 sm:pb-52"></div>
 
-    <section class="w-full bg-blue-500 py-5 sm:py-10 text-center px-4 fixed bottom-0 left-0 z-10">
-      <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-6">さっそく予定を合わせてみましょう</h2>
-      <router-link 
-        to="/new" 
-        class="inline-flex items-center justify-center bg-white text-blue-500 text-md sm:text-lg font-bold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50 transition-all duration-300 active:scale-95"
-      >
-        新しく予定を作成する
-      </router-link>
+    <section class="w-full bg-blue-500/95 backdrop-blur-sm py-5 sm:py-10 landscape:py-3 text-center px-4 fixed bottom-0 left-0 z-50 border-t border-white/10">
+      <div class="max-w-5xl mx-auto flex flex-col landscape:flex-row items-center justify-center gap-3 sm:gap-6 landscape:gap-8">
+        <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-6 landscape:mb-0">
+          さっそく予定を合わせてみましょう
+        </h2>
+
+        <router-link 
+          to="/new" 
+          class="inline-flex items-center justify-center bg-white text-blue-500 text-sm sm:text-lg font-bold px-8 py-3 sm:px-10 sm:py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95"
+        >
+          新しく予定を作成する
+        </router-link>
+      </div>
     </section>
 
   </div>
