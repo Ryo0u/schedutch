@@ -5,8 +5,8 @@ import { ref } from 'vue'
 <template>
   <div class="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-100 font-sans text-gray-800">
     
-    <section class="max-w-5xl mx-auto px-4 pt-40 pb-35 text-center mb-5">
-			`<h1 class="animate-fade-in-up text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-gray-900">
+    <section class="max-w-5xl mx-auto px-4 pt-25 sm:pt-40 pb-20 sm:pb-35 text-center mb-5">
+			<h1 class="animate-fade-in-up text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-gray-900">
 				全員の空いてる時間が、<br class="block" />
 				<span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-600">一瞬でわかる。</span>
 			</h1>
@@ -19,7 +19,7 @@ import { ref } from 'vue'
 			</p>
 			
 			<p class="animate-fade-in-up animation-delay-400 text-xs text-gray-400 mt-4">※ログイン・会員登録は一切不要です。</p>
-		</section>`
+		</section>
 
     <section class="max-w-5xl mx-auto px-4 py-20">
       <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-gray-700">使い方・特徴</h2>
@@ -89,11 +89,11 @@ import { ref } from 'vue'
 		
 		<div class="pb-52"></div>
 
-    <section class="w-full bg-blue-500 py-10 text-center px-4 fixed bottom-0 left-0 z-10">
-      <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">さっそく予定を合わせてみましょう</h2>
+    <section class="w-full bg-blue-500 py-5 sm:py-10 text-center px-4 fixed bottom-0 left-0 z-10">
+      <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-6">さっそく予定を合わせてみましょう</h2>
       <router-link 
         to="/new" 
-        class="inline-flex items-center justify-center bg-white text-blue-500 text-lg font-bold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50 transition-all duration-300 active:scale-95"
+        class="inline-flex items-center justify-center bg-white text-blue-500 text-md sm:text-lg font-bold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50 transition-all duration-300 active:scale-95"
       >
         新しく予定を作成する
       </router-link>
