@@ -34,13 +34,13 @@ const shareApp = async () => {
 
 <template>
   <header class="w-full bg-white/80 backdrop-blur-md border-b border-b-gray-100 border-t-4 border-t-blue-500 shadow-sm transition-all">
-    <div class="mx-auto px-4 h-16 sm:h-20 flex items-center justify-between">
+    <div class="mx-auto px-2 sm:px-4 h-16 sm:h-20 flex items-center justify-between">
       
       <router-link to="/" class="relative -top-0.5 flex items-center transition-transform hover:-translate-y-0.5 hover:opacity-80 shrink-0">
         <img src="@/assets/images/AppLogo.png" class="h-13 sm:h-18 w-auto object-contain" alt="SCHEDUTCH" />
       </router-link>
 
-      <div class="flex items-center gap-3 sm:gap-5">
+      <div class="flex items-center gap-1 sm:gap-5">
         
         <router-link to="/" class="group flex flex-col items-center justify-center bg-white text-gray-700 px-4 py-1.5 sm:px-10 rounded-full shadow-sm border border-gray-200 hover:border-blue-300 hover:text-blue-600 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 active:scale-95 leading-tight">
           <span class="text-xs sm:text-sm font-bold flex items-center gap-1">
