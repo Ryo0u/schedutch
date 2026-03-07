@@ -35,12 +35,13 @@
   </header>
   
   <div class="min-h-screen bg-slate-100 relative overflow-hidden">
-    <div class="absolute inset-0 z-0 opacity-[0.15]" 
-        style="background-image: radial-gradient(#3b82f6 1.5px, transparent 1.5px); background-size: 24px 24px;">
-    </div>
-    
-    <div class="relative">
-      <router-view/>
-    </div>
+  
+  <div class="absolute inset-0 z-0 opacity-[0.06]" 
+       style="background-image: linear-gradient(#3b82f6 1px, transparent 1px), linear-gradient(90deg, #3b82f6 1px, transparent 1px); background-size: 40px 40px;">
   </div>
+  
+  <div class="relative z-10">
+    <router-view/>
+  </div>
+</div>
 </template>
