@@ -1,32 +1,57 @@
 <script setup>
-import { ref } from 'vue'
 </script>
 
 <template>
   <div class="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-100 font-sans text-gray-800">
     
-    <section class="relative w-full mx-auto px-4 pt-30 sm:pt-40 pb-20 sm:pb-52 text-center mb-5 bg-cover bg-center bg-no-repeat"
-             style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');"
-    >
-      <div class="absolute inset-0 bg-gray-900/70 z-0"></div>
-      
-      <div class="relative z-10 max-w-5xl mx-auto px-4">
-        <h1 class="animate-fade-in-up text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
-          全員の空いてる時間が<br class="block" />
-          <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-600">一瞬でわかる。</span>
+    <section class="relative w-full min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] flex flex-col justify-center items-center px-4 text-center bg-slate-50 overflow-hidden">
+  
+      <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-linear-to-br from-blue-200/50 to-indigo-300/40 blur-[100px] sm:blur-[150px]"></div>
+        <div class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-linear-to-tr from-cyan-100/50 to-blue-200/40 blur-[100px] sm:blur-[150px]"></div>
+      </div>
+
+      <div class="relative z-10 max-w-4xl mx-auto w-full pt-10">
+        
+        <p class="animate-fade-in-up text-blue-700 font-bold tracking-[0.25em] text-xs sm:text-sm mb-6 uppercase">
+          Smart Scheduling
+        </p>
+
+        <h1 class="animate-fade-in-up animation-delay-200 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-8 leading-tight text-slate-800">
+          空いてる時間が<br class="block" />
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">一瞬でわかる。</span>
         </h1>
         
-        <p class="animate-fade-in-up animation-delay-200 text-sm md:text-xl text-white mb-2 max-w-2xl mx-auto leading-relaxed">
-          SCHEDUTCHは<br class="block" />
-          「大量の予定」を調整するための特化型ツール<br class="block" />
-          メンバーの回答を考慮して最適な時間帯を自動抽出<br class="block" />
-          どんなに多い候補日でも、全員の回答を集計・視覚化<br class="block" />
-          結果は1クリックでコピーして参加者に共有
+        <p class="animate-fade-in-up animation-delay-400 text-sm md:text-lg text-slate-500 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
+          SCHEDUTCHは「大量の予定」を調整するための特化型ツール。<br class="hidden sm:block" />
+          メンバーの回答を考慮して最適な時間帯を自動抽出し、<br class="hidden sm:block" />
+          どんなに多い候補日でも、全員の回答を集計・視覚化します。
         </p>
         
-        <p class="animate-fade-in-up animation-delay-400 text-xs text-gray-300 mt-4">※ログイン・会員登録は一切不要です。</p>
+        <div class="animate-fade-in-up animation-delay-400 flex justify-center mb-6">
+          <router-link 
+            to="/new" 
+            class="group inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-md border border-slate-200 text-slate-600 text-sm sm:text-base font-bold px-8 py-3.5 rounded-full shadow-sm hover:shadow-md hover:border-blue-300 hover:text-blue-600 hover:-translate-y-0.5 transition-all duration-300 active:scale-95"
+          >
+            <span>新しく予定を作成する</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </router-link>
+        </div>
+
+        <p class="animate-fade-in-up animation-delay-400 text-xs text-slate-400">
+          ※登録不要・完全無料ですぐに使えます。
+        </p>
       </div>
-		</section>
+
+      <div class="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce flex flex-col items-center gap-2 text-slate-300 z-10 pointer-events-none">
+        <span class="text-[10px] tracking-[0.2em] uppercase font-bold">Scroll</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </div>
+    </section>
 
     <section class="max-w-5xl mx-auto px-4 py-20">
       <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-gray-700">使い方・特徴</h2>
@@ -94,23 +119,35 @@ import { ref } from 'vue'
       </div>
     </section>
 		
-		<div class="pb-20 sm:pb-52 [@media(max-height:450px)]:hidden"></div>
+    <footer class="w-full bg-gray-500 text-slate-300 py-12">
+      <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+        
+        <div class="flex flex-col items-center md:items-start">
+          <router-link to="/" class="flex items-center gap-2 mb-3 hover:opacity-80 transition-opacity">
+            <img src="@/assets/images/AppLogo.png" alt="SCHEDUTCH" class="h-8 w-auto grayscale brightness-200" />
+          </router-link>
+          <p class="text-xs text-slate-400">サクッと決まる、日程調整の最適解。</p>
+        </div>
 
-    <section class="w-full bg-blue-500 py-5 sm:py-10 text-center px-4 z-50
-                    fixed bottom-0 left-0
-                    [@media(max-height:450px)]:static [@media(max-height:450px)]:mt-10"
-    >      
-      <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-6">
-        さっそく予定を合わせてみましょう
-      </h2>
+        <div class="flex flex-wrap justify-center gap-6 text-sm font-medium">
+          <a href="#" class="hover:text-white transition-colors">利用規約</a>
+          <a href="#" class="hover:text-white transition-colors">プライバシーポリシー</a>
+          <a href="https://github.com/Ryo0u/schedutch" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1">
+            GitHub
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+          </a>
+        </div>
+        
+      </div>
+      
+      <div class="max-w-5xl mx-auto px-4 mt-8 pt-8 border-t border-slate-700 text-center text-xs text-slate-500 font-mono">
+        &copy; 2026 SCHEDUTCH. All rights reserved.
+      </div>
+    </footer>
 
-      <router-link 
-        to="/new" 
-        class="inline-flex items-center justify-center bg-white text-blue-500 text-md sm:text-lg font-bold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 active:scale-95"
-      >
-        新しく予定を作成する
-      </router-link>
-    </section>
+    
 
   </div>
 </template>
