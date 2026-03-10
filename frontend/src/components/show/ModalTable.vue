@@ -133,8 +133,13 @@ const onMouseEnter = (date, time) => {
 // ---タッチイベント---
 
 const onTouchMove = (e) => {
-  if (!isDragging.value) return
+  if (!isDragging.value)
+    return
   
+  if (e.cancelable) {
+    e.preventDefault() 
+  }
+
   // 位置を取得
   const touch = e.touches[0]
   const x = touch.clientX
@@ -294,8 +299,8 @@ defineExpose({ submit })
 								@mousedown.prevent="startDrag(date, time)"
                 @mouseenter="onMouseEnter(date, time)"
                 
-                @touchstart.prevent="startDrag(date, time)"
-                @touchmove.prevent="onTouchMove"
+                @touchstart="startDrag(date, time)"
+                @touchmove="onTouchMove"
 								
 								class="border-b-2 border-gray-400 h-5 sm:h-6 p-0 text-center relative w-3 sm:w-4 text-xs sm:text-xs"
 								:class="[
