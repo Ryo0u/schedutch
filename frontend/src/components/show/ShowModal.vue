@@ -107,7 +107,7 @@ const submitData = async (data) => {
       class="bg-white rounded-xl shadow-2xl flex flex-col border-5 border-blue-100 overflow-hidden transition-all duration-300 pointer-events-auto"
       :class="isExpanded ? 'w-full max-w-4xl max-h-[90vh]' : 'w-60 shadow-lg'"
     >
-      <div class="bg-blue-100 flex items-center justify-between p-2 sm:p-4 border-b border-gray-100 cursor-pointer" @click="isExpanded = true">
+      <div class="bg-blue-100 flex items-center justify-between p-1 sm:p-4 cursor-pointer" @click="isExpanded = true">
         <h3 class="font-bold text-gray-500 truncate" :class="isExpanded ? 'text-lg sm:text-xl' : 'text-xs'">
           {{ isExpanded ? 'あなたの予定を入力する' : '入力を再開する' }}
         </h3>

@@ -35,10 +35,10 @@ const candidateDates = computed(() => {
   return [...new Set(dates)].sort()
 })
 
-// データ用
+// 表のデータ用
 const timeSlots = computed(() => {
   const slots = []
-  for (let h = 0; h < 24; h++) {
+  for (let h = 0; h < 24; h++) { // データは00:00から23:30まで
     const hour = String(h).padStart(2, '0')
     slots.push(`${hour}:00`)
     slots.push(`${hour}:30`)
@@ -46,7 +46,7 @@ const timeSlots = computed(() => {
   return slots
 })
 
-// 目盛り用
+// 表の目盛り用
 const headerLabels = computed(() => {
   const allTimes = [...timeSlots.value, "24:00"]
   
@@ -107,12 +107,20 @@ const updateStatus = (date, time) => {
   userResponses[key] = currentMode.value
 }
 
+// ---表のドラッグ処理---
 
 const startDrag = (date, time) => {
   isDragging.value = true
   updateStatus(date, time)
 }
 
+const stopDrag = () => {
+  isDragging.value = false
+}
+
+// ------------------
+
+// ---マウスイベント---
 
 const onMouseEnter = (date, time) => {
   if (isDragging.value) {
@@ -120,20 +128,48 @@ const onMouseEnter = (date, time) => {
   }
 }
 
-const stopDrag = () => {
-  isDragging.value = false
+// ------------------
+
+// ---タッチイベント---
+
+const onTouchMove = (e) => {
+  if (!isDragging.value)
+    return
+  
+  if (e.cancelable) {
+    e.preventDefault() 
+  }
+
+  // 位置を取得
+  const touch = e.touches[0]
+  const x = touch.clientX
+  const y = touch.clientY
+  
+  // 位置の下にある要素取得
+  const element = document.elementFromPoint(x, y)
+  
+  if (element && element.dataset.date && element.dataset.time) {
+    const date = element.dataset.date
+    const time = element.dataset.time
+    updateStatus(date, time)
+  }
 }
 
-// 画面のどこでマウスを離してもドラッグを終了させるための設定
+//-------------------
+
 onMounted(() => {
   window.addEventListener('mouseup', stopDrag)
+  window.addEventListener('touchend', stopDrag)
+  window.addEventListener('touchcancel', stopDrag)
 })
 
 onUnmounted(() => {
   window.removeEventListener('mouseup', stopDrag)
+  window.removeEventListener('touchend', stopDrag)
+  window.removeEventListener('touchcancel', stopDrag)
 })
 
-// 全部OKで初期化
+// 表を全部OKで初期化
 watch(() => [props.event, props.editingUser], () => {
   if (!props.event || !props.event.candidates) return
 
@@ -257,8 +293,14 @@ defineExpose({ submit })
 								v-for="(time, index) in timeSlots" 
 								:key="date + time"
 								
+                :data-date="date"
+                :data-time="time"
+    
 								@mousedown.prevent="startDrag(date, time)"
                 @mouseenter="onMouseEnter(date, time)"
+                
+                @touchstart="startDrag(date, time)"
+                @touchmove="onTouchMove"
 								
 								class="border-b-2 border-gray-400 h-5 sm:h-6 p-0 text-center relative w-3 sm:w-4 text-xs sm:text-xs"
 								:class="[
