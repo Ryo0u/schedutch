@@ -1,4 +1,46 @@
 <script setup>
+import FeatureStep from '@/components//top/FeatureStep.vue'
+
+// Vite環境で画像を扱うため、明示的にimport
+import stepCreateImg from '@/assets/images/step_create.png'
+import stepAnswerImg from '@/assets/images/step_answer.png'
+import stepShowImg from '@/assets/images/step_show.png'
+import stepExtractImg from '@/assets/images/step_extract.png'
+
+const steps = [
+  {
+    number: '01',
+    title: 'イベントを作成',
+    description: 'イベント名を入力し、カレンダーから候補日程を選択するだけでセットアップ完了。日付や時間帯の指定も直感的な操作で、迷うことなく専用のURLを発行できます。',
+    image: stepCreateImg,
+    reverse: false,
+    glow: 'bg-blue-400'
+  },
+  {
+    number: '02',
+    title: 'メンバーに入力してもらう',
+    description: '発行されたURLを共有するだけ。受け取ったメンバーはログインやアプリのインストール不要で、回答画面から自分の空き時間を即座に登録できます。',
+    image: stepAnswerImg,
+    reverse: true, // 画像が左
+    glow: 'bg-indigo-400'
+  },
+  {
+    number: '03',
+    title: 'メンバーの予定を確認',
+    description: '全員の回答は自動で集計され、見やすい一覧表として可視化されます。誰がいつ空いているのかを一瞬で把握することが可能です。',
+    image: stepShowImg,
+    reverse: false,
+    glow: 'bg-blue-400'
+  },
+  {
+    number: '04',
+    title: '候補時間を抽出して確定',
+    description: 'ワンタップで選択したメンバーの空いている日時を抽出。そのまま共有用のテキストをコピーして、参加者に送るだけで調整完了です。',
+    image: stepExtractImg,
+    reverse: true, // 画像が左
+    glow: 'bg-indigo-400'
+  }
+]
 </script>
 
 <template>
@@ -19,7 +61,7 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
           </span>
-          smart scheduling
+          SCHEDUTCH
         </div>
 
         <h1 class="animate-fade-in-up text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 mb-6 leading-[1.15]">
@@ -49,119 +91,36 @@
       </div>
     </section>
 
-    <section class="relative w-full py-24 sm:py-32 bg-slate-50 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative w-full py-24 sm:py-32 overflow-hidden">
     
-    <div class="text-center mb-24 sm:mb-32">
-      <span class="text-blue-600 font-extrabold tracking-widest text-sm uppercase mb-3 block">
-        How to use
-      </span>
-      <h2 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">
-        4ステップで簡単調整
-      </h2>
-    </div>
+    <div class="absolute inset-0 bg-gray-100 [clip-path:polygon(0_5vw,100%_0,100%_100%,0_100%)] z-0"></div>
 
-    <div class="space-y-32 sm:space-y-48">
-
-      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-        <div class="w-full lg:w-5/12 text-center lg:text-left">
-          <span class="text-7xl md:text-8xl font-black text-gray-200 block mb-2 leading-none">01</span>
-          <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">イベントを作成</h3>
-          <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
-            イベント名と候補日・時間を選んで、専用のURLを発行します。PCの広い画面を活かして、複数日程もカレンダーからサクサク選べます。
-          </p>
-        </div>
-        <div class="w-full lg:w-7/12 relative group">
-          <div class="absolute inset-0 bg-blue-400/20 rounded-full blur-[120px] -z-10 group-hover:bg-blue-400/30 transition-colors duration-500"></div>
-          
-          <div class="relative rounded-xl sm:rounded-2xl border border-gray-200/60 shadow-2xl bg-white overflow-hidden ring-1 ring-black/5 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500">
-            <div class="h-10 sm:h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4 gap-2">
-              <div class="w-3 h-3 rounded-full bg-red-400 border border-red-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-amber-400 border border-amber-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-green-400 border border-green-500/20"></div>
-            </div>
-            <div class="relative overflow-hidden bg-gray-100">
-              <img src="@/assets/images/step_create.png" alt="イベント作成画面" class="w-full h-auto block" />
-            </div>
-          </div>
-        </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-24 sm:mb-32">
+        <span class="text-blue-600 font-extrabold tracking-widest text-sm uppercase mb-3 block">
+          How to use
+        </span>
+        <h2 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">
+          4ステップで簡単調整
+        </h2>
       </div>
 
-      <div class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
-        <div class="w-full lg:w-5/12 text-center lg:text-left">
-          <span class="text-7xl md:text-8xl font-black text-gray-200 block mb-2 leading-none">02</span>
-          <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">メンバーに入力してもらう</h3>
-          <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
-            発行したURLを共有。PCでもスマホでも、受け取ったメンバーはログイン不要で即座に自分の予定を入力できます。
-          </p>
-        </div>
-        <div class="w-full lg:w-7/12 relative group">
-          <div class="absolute inset-0 bg-indigo-400/20 rounded-full blur-[120px] -z-10 group-hover:bg-indigo-400/30 transition-colors duration-500"></div>
-          
-          <div class="relative rounded-xl sm:rounded-2xl border border-gray-200/60 shadow-2xl bg-white overflow-hidden ring-1 ring-black/5 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500">
-            <div class="h-10 sm:h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4 gap-2">
-              <div class="w-3 h-3 rounded-full bg-red-400 border border-red-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-amber-400 border border-amber-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-green-400 border border-green-500/20"></div>
-            </div>
-            <div class="relative overflow-hidden bg-gray-100">
-              <img src="@/assets/images/step_answer.png" alt="予定入力画面" class="w-full h-auto block" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-        <div class="w-full lg:w-5/12 text-center lg:text-left">
-          <span class="text-7xl md:text-8xl font-black text-gray-200 block mb-2 leading-none">03</span>
-          <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">メンバーの予定を確認</h3>
-          <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
-            誰がいつ空いているか、直感的な表でパッと一目で確認。PCの広い画面なら、大人数の予定もスクロールせずに俯瞰できます。
-          </p>
-        </div>
-        <div class="w-full lg:w-7/12 relative group">
-          <div class="absolute inset-0 bg-blue-400/20 rounded-full blur-[120px] -z-10 group-hover:bg-blue-400/30 transition-colors duration-500"></div>
-          
-          <div class="relative rounded-xl sm:rounded-2xl border border-gray-200/60 shadow-2xl bg-white overflow-hidden ring-1 ring-black/5 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500">
-            <div class="h-10 sm:h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4 gap-2">
-              <div class="w-3 h-3 rounded-full bg-red-400 border border-red-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-amber-400 border border-amber-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-green-400 border border-green-500/20"></div>
-            </div>
-            <div class="relative overflow-hidden bg-gray-100">
-              <img src="@/assets/images/step_show.png" alt="予定閲覧画面" class="w-full h-auto block" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
-        <div class="w-full lg:w-5/12 text-center lg:text-left">
-          <span class="text-7xl md:text-8xl font-black text-gray-200 block mb-2 leading-none">04</span>
-          <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">候補時間を抽出して確定</h3>
-          <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
-            ワンタップで最適な日程をサクッと決定！そのまま共有用のテキストをコピーして、参加者に送るだけで調整完了です。
-          </p>
-        </div>
-        <div class="w-full lg:w-7/12 relative group">
-          <div class="absolute inset-0 bg-indigo-400/20 rounded-full blur-[120px] -z-10 group-hover:bg-indigo-400/30 transition-colors duration-500"></div>
-          
-          <div class="relative rounded-xl sm:rounded-2xl border border-gray-200/60 shadow-2xl bg-white overflow-hidden ring-1 ring-black/5 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500">
-            <div class="h-10 sm:h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4 gap-2">
-              <div class="w-3 h-3 rounded-full bg-red-400 border border-red-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-amber-400 border border-amber-500/20"></div>
-              <div class="w-3 h-3 rounded-full bg-green-400 border border-green-500/20"></div>
-            </div>
-            <div class="relative overflow-hidden bg-gray-100">
-              <img src="@/assets/images/step_extract.png" alt="予定抽出画面" class="w-full h-auto block" />
-            </div>
-          </div>
-        </div>
+      <div class="space-y-32 sm:space-y-48">
+        <FeatureStep
+          v-for="step in steps"
+          :key="step.number"
+          :step-number="step.number"
+          :title="step.title"
+          :description="step.description"
+          :image-src="step.image"
+          :is-reverse="step.reverse"
+          :glow-color="step.glow"
+        />
       </div>
 
     </div>
-  </div>
-</section>
+  </section>
 		
    <footer class="w-full bg-gray-500 border-t border-slate-200 py-3 ">
       <div class="max-w-5xl mx-auto px-6 flex items-center justify-center gap-6">
