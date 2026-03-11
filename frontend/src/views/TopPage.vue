@@ -1,5 +1,6 @@
 <script setup>
-import FeatureStep from '@/components//top/FeatureStep.vue'
+import FeatureStep from '@/components/top/FeatureStep.vue'
+import FaqItem from '@/components/top/FaqItem.vue'
 
 // Vite環境で画像を扱うため、明示的にimport
 import stepCreateImg from '@/assets/images/step_create.png'
@@ -40,6 +41,17 @@ const steps = [
     reverse: true, // 画像が左
     glow: 'bg-indigo-400'
   }
+]
+
+const faqs = [
+  {
+    question: '会員登録やアプリのインストールが必要ですか？',
+    answer: '一切不要です。幹事の方が発行したURLをブラウザで開くだけで、誰でもすぐに回答できます。LINEなどのSNSでURLを共有するだけで完結します。'
+  },
+  {
+    question: '利用に料金はかかりますか？',
+    answer: 'いいえ、完全無料ですべての機能をご利用いただけます。'
+  },
 ]
 </script>
 
@@ -93,34 +105,58 @@ const steps = [
 
     <section class="relative w-full py-24 sm:py-32 overflow-hidden">
     
-    <div class="absolute inset-0 bg-gray-100 [clip-path:polygon(0_5vw,100%_0,100%_100%,0_100%)] z-0"></div>
+      <div class="absolute inset-0 bg-gray-100 [clip-path:polygon(0_5vw,100%_0,100%_100%,0_100%)] z-0"></div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center mb-24 sm:mb-32">
-        <span class="text-blue-600 font-extrabold tracking-widest text-sm uppercase mb-3 block">
-          How to use
-        </span>
-        <h2 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">
-          4ステップで簡単調整
-        </h2>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-24 sm:mb-32">
+          <span class="text-blue-600 font-extrabold tracking-widest text-sm uppercase mb-3 block">
+            How to use
+          </span>
+          <h2 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">
+            4ステップで簡単調整
+          </h2>
+        </div>
+
+        <div class="space-y-32 sm:space-y-48">
+          <FeatureStep
+            v-for="step in steps"
+            :key="step.number"
+            :step-number="step.number"
+            :title="step.title"
+            :description="step.description"
+            :image-src="step.image"
+            :is-reverse="step.reverse"
+            :glow-color="step.glow"
+          />
+        </div>
+
       </div>
+    </section>
+  
+    <section class="w-full py-14 sm:py-22 bg-gray-100 mb-5">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        
+        <div class="text-center mb-16">
+          <span class="text-blue-600 font-extrabold tracking-widest text-sm uppercase mb-3 block">
+            FAQ
+          </span>
+          <h2 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
+            よくあるご質問
+          </h2>
+        </div>
 
-      <div class="space-y-32 sm:space-y-48">
-        <FeatureStep
-          v-for="step in steps"
-          :key="step.number"
-          :step-number="step.number"
-          :title="step.title"
-          :description="step.description"
-          :image-src="step.image"
-          :is-reverse="step.reverse"
-          :glow-color="step.glow"
-        />
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-4 sm:p-6 hover:shadow-md transition-shadow duration-300">
+          <FaqItem 
+            v-for="(faq, index) in faqs" 
+            :key="index"
+            :question="faq.question"
+            :answer="faq.answer"
+          />
+        </div>
+
       </div>
-
-    </div>
-  </section>
+    </section>
 		
    <footer class="w-full bg-gray-500 border-t border-slate-200 py-3 ">
       <div class="max-w-5xl mx-auto px-6 flex items-center justify-center gap-6">
@@ -134,11 +170,10 @@ const steps = [
         </div>
       </div>
     </footer>
-
     
-
   </div>
 </template>
+
 <style scoped>
 @keyframes fadeInUp {
   0% {

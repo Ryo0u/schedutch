@@ -33,7 +33,7 @@ const shareApp = async () => {
 </script>
 
 <template>
-  <header class="w-full sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-b-gray-100 border-t-4 border-t-blue-500 shadow-sm transition-all">
+  <header class="w-full sticky top-0 z-50 bg-white backdrop-blur-md border-b border-b-gray-100 border-t-4 border-t-blue-500 shadow-sm transition-all">
     <div class="mx-auto px-2 sm:px-4 h-16 sm:h-20 flex items-center justify-between">
       
       <router-link to="/" class="relative -top-0.5 flex items-center transition-transform hover:-translate-y-0.5 hover:opacity-80 shrink-0">
