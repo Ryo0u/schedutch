@@ -1,3 +1,14 @@
+<script setup>
+defineProps({
+  stepNumber: { type: String, required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  imageSrc: { type: String, required: true },
+  isReverse: { type: Boolean, default: false }, // trueなら画像が左に来る
+  glowColor: { type: String, default: 'bg-blue-400' }
+})
+</script>
+
 <template>
   <div :class="['flex flex-col lg:flex-row items-center gap-12 lg:gap-16', isReverse ? 'lg:flex-row-reverse' : '']">
     
@@ -33,15 +44,3 @@
     
   </div>
 </template>
-
-<script setup>
-
-defineProps({
-  stepNumber: { type: String, required: true },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  imageSrc: { type: String, required: true },
-  isReverse: { type: Boolean, default: false }, // trueなら画像が左に来る
-  glowColor: { type: String, default: 'bg-blue-400' }
-})
-</script>

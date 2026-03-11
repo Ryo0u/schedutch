@@ -77,7 +77,7 @@ const steps = [
         <div class="animate-fade-in-up animation-delay-400 flex flex-col items-center justify-center">
           <router-link 
             to="/new" 
-            class="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:shadow-[0_8px_30px_rgb(79,70,229,0.3)] hover:-translate-y-1 active:scale-95"
+            class="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 bg-linear-to-r from-blue-600 to-indigo-600 rounded-full hover:shadow-[0_8px_30px_rgb(79,70,229,0.3)] hover:-translate-y-1 active:scale-95"
           >
             新しく予定を作成する
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 ml-2 -mr-1 transition-transform duration-300 group-hover:translate-x-1.5">
