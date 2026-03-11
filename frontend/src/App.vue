@@ -36,12 +36,13 @@ const shareApp = async () => {
     class="sticky top-0 z-50 w-full border-t-4 border-b border-t-blue-500 border-b-gray-100 bg-white shadow-sm backdrop-blur-md transition-all"
   >
     <div class="mx-auto flex h-16 items-center justify-between px-2 sm:h-20 sm:px-4">
+      
       <router-link
         to="/"
         class="relative -top-0.5 flex shrink-0 items-center transition-transform hover:-translate-y-0.5 hover:opacity-80"
       >
         <img
-          src="@/assets/images/AppLogo.png"
+          src="@/assets/images/AppTitle.png"
           class="h-13 w-auto object-contain sm:h-18"
           alt="SCHEDUTCH"
         />
