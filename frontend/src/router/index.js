@@ -6,30 +6,30 @@ const routes = [
   {
     path: '/',
     name: 'TopPage',
-    component: TopPage
+    component: TopPage,
   },
   {
     path: '/new',
     name: 'EventCreate',
-    component: EventCreate
+    component: EventCreate,
   },
   {
     path: '/events/:url_token',
     name: 'EventShow',
-    component: EventShow
-  }
+    component: EventShow,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  
+
   scrollBehavior(to, from, savedPosition) {
-  if (savedPosition) {
-    return savedPosition
-  }
-  return { top: 0, behavior: 'smooth' }
-}
+    if (savedPosition) {
+      return savedPosition
+    }
+    return { top: 0, behavior: 'smooth' }
+  },
 })
 
 export default router
