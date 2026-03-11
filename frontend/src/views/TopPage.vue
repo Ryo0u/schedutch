@@ -2,119 +2,132 @@
 </script>
 
 <template>
-  <div class="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-100 font-sans text-gray-800">
+  <div class="min-h-screen bg-slate-50 font-sans text-gray-800">
     
-    <section class="relative w-full min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] flex flex-col justify-center items-center px-4 text-center bg-slate-50 overflow-hidden">
+    <section class="relative w-full min-h-dvh flex flex-col justify-center items-center px-4 py-20 bg-slate-50 overflow-hidden">
   
-      <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-linear-to-br from-blue-200/50 to-indigo-300/40 blur-[100px] sm:blur-[150px]"></div>
-        <div class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-linear-to-tr from-cyan-100/50 to-blue-200/40 blur-[100px] sm:blur-[150px]"></div>
+      <div class="absolute inset-0 z-0 bg-cover bg-top bg-no-repeat opacity-100"
+          style="background-image: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=2068&auto=format&fit=crop');">
       </div>
 
-      <div class="relative z-10 max-w-4xl mx-auto w-full pt-10">
+      <div class="absolute inset-0 z-0 bg-linear-to-b from-blue-900/10 via-slate-50/80 to-slate-50 backdrop-blur-[2px]"></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto text-center pt-10">
         
-        <p class="animate-fade-in-up text-blue-700 font-bold tracking-[0.25em] text-xs sm:text-sm mb-6 uppercase">
-          Smart Scheduling
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-gray-200/60 text-gray-600 text-xs font-bold tracking-widest uppercase mb-8 shadow-sm backdrop-blur-md">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+          </span>
+          smart scheduling
+        </div>
+
+        <h1 class="animate-fade-in-up text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 mb-6 leading-[1.15]">
+          空いてる時間が<br />
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-indigo-500 to-purple-600">一瞬でわかる</span>
+        </h1>
+
+        <p class="animate-fade-in-up animation-delay-200 text-base md:text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          SCHEDUTCHは、「大量の予定」を調整するための特化型ツール。<br class="hidden md:block" />
+          メンバーの回答から最適な時間帯を自動抽出し、1クリックで共有できます。
         </p>
 
-        <h1 class="animate-fade-in-up animation-delay-200 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-8 leading-tight text-slate-800">
-          空いてる時間が<br class="block" />
-          <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">一瞬でわかる。</span>
-        </h1>
-        
-        <p class="animate-fade-in-up animation-delay-400 text-sm md:text-lg text-slate-500 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
-          SCHEDUTCHは「大量の予定」を調整するための特化型ツール。<br class="hidden sm:block" />
-          メンバーの回答を考慮して最適な時間帯を自動抽出し、<br class="hidden sm:block" />
-          どんなに多い候補日でも、全員の回答を集計・視覚化します。
-        </p>
-        
-        <div class="animate-fade-in-up animation-delay-400 flex justify-center mb-6">
+        <div class="animate-fade-in-up animation-delay-400 flex flex-col items-center justify-center">
           <router-link 
             to="/new" 
-            class="group inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-md border border-slate-200 text-slate-600 text-sm sm:text-base font-bold px-8 py-3.5 rounded-full shadow-sm hover:shadow-md hover:border-blue-300 hover:text-blue-600 hover:-translate-y-0.5 transition-all duration-300 active:scale-95"
+            class="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:shadow-[0_8px_30px_rgb(79,70,229,0.3)] hover:-translate-y-1 active:scale-95"
           >
-            <span>新しく予定を作成する</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300">
+            新しく予定を作成する
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 ml-2 -mr-1 transition-transform duration-300 group-hover:translate-x-1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
           </router-link>
+          
+          <p class="mt-4 text-sm text-gray-500 font-medium">完全無料・すぐにお使いいただけます</p>
         </div>
 
-        <p class="animate-fade-in-up animation-delay-400 text-xs text-slate-400">
-          ※登録不要・完全無料ですぐに使えます。
-        </p>
-      </div>
-
-      <div class="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce flex flex-col items-center gap-2 text-slate-300 z-10 pointer-events-none">
-        <span class="text-[10px] tracking-[0.2em] uppercase font-bold">Scroll</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </svg>
       </div>
     </section>
 
-    <section class="max-w-5xl mx-auto px-4 py-20">
-      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-gray-700">使い方・特徴</h2>
-      
-      <div class="max-w-5xl grid md:grid-cols-2 gap-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
-          <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
-            <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">1</div>
-            <img
-							src="@/assets/images/step_create.png"
-							alt="イベント作成画面"
-							class="shadow-md shadow-indigo-200"
-						/>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2 text-center">イベントを作成</h3>
-            <p class="text-sm text-gray-600 text-center leading-relaxed">イベント名と候補日・時間を選んで、専用のURLを発行します。</p>
-          </div>
+    <section class="relative w-full pt-28 pb-20 sm:pt-32">
+  
+      <div class="absolute inset-0 bg-gray-200 [clip-path:polygon(0_5vw,100%_0,100%_100%,0_100%)] z-0"></div>
+
+      <div class="relative z-10 max-w-5xl mx-auto px-4">
+        <div class="text-center mb-16">
+          <span class="text-blue-500 font-bold tracking-widest text-sm uppercase mb-2 block">
+            How to use
+          </span>
+          
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight">
+            使い方・特徴
+          </h2>
+          
+          <div class="w-12 h-1 bg-linear-to-r from-blue-500 to-indigo-500 mx-auto mt-6 rounded-full"></div>
         </div>
         
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
-          <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
-            <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">2</div>
-            <img
-							src="@/assets/images/step_answer.png"
-							alt="予定入力画面"
-							class="shadow-md shadow-indigo-200"
-						/>
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+            <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
+              <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">1</div>
+              <img
+                src="@/assets/images/step_create.png"
+                alt="イベント作成画面"
+                class="shadow-md shadow-indigo-200"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="font-bold text-gray-800 mb-2 text-center">イベントを作成</h3>
+              <p class="text-sm text-gray-600 text-center leading-relaxed">イベント名と候補日・時間を選んで、専用のURLを発行します。</p>
+            </div>
           </div>
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2 text-center">メンバーに入力してもらう</h3>
-            <p class="text-sm text-gray-600 text-center leading-relaxed">発行したURLをLINEなどで共有。メンバーはログイン不要で即座に出欠を入力できます。</p>
+          
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+            <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
+              <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">2</div>
+              <img
+                src="@/assets/images/step_answer.png"
+                alt="予定入力画面"
+                class="shadow-md shadow-indigo-200"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="font-bold text-gray-800 mb-2 text-center">メンバーに入力してもらう</h3>
+              <p class="text-sm text-gray-600 text-center leading-relaxed">発行したURLをLINEなどで共有。メンバーはログイン不要で即座に出欠を入力できます。</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
-          <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
-            <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">3</div>
-            <img
-							src="@/assets/images/step_show.png"
-							alt="予定閲覧画面"
-							class="shadow-md shadow-indigo-200"
-						/>
+          
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+            <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
+              <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">3</div>
+              <img
+                src="@/assets/images/step_show.png"
+                alt="予定閲覧画面"
+                class="shadow-md shadow-indigo-200"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="font-bold text-gray-800 mb-2 text-center">メンバーの予定を確認</h3>
+              <p class="text-sm text-gray-600 text-center leading-relaxed">誰がいつ空いているか、直感的な表でパッと一目で確認できます。</p>
+            </div>
           </div>
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2 text-center">メンバーの予定を確認</h3>
-            <p class="text-sm text-gray-600 text-center leading-relaxed">誰がいつ空いているか、直感的な表でパッと一目で確認できます。</p>
+          
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+            <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
+              <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">4</div>
+              <img
+                src="@/assets/images/step_extract.png"
+                alt="予定抽出画面"
+                class="shadow-md shadow-indigo-200"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="font-bold text-gray-800 mb-2 text-center">候補時間を抽出して確定</h3>
+              <p class="text-sm text-gray-600 text-center leading-relaxed">候補時間をワンタップで抽出し、最適な日程をサクッと決定！</p>
+            </div>
           </div>
-        </div>
-				
-				<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
-          <div class="border-b border-gray-100 aspect-video relative flex items-center justify-center p-4">
-            <div class="absolute top-3 left-3 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10">4</div>
-            <img
-							src="@/assets/images/step_extract.png"
-							alt="予定抽出画面"
-							class="shadow-md shadow-indigo-200"
-						/>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-gray-800 mb-2 text-center">候補時間を抽出して確定</h3>
-            <p class="text-sm text-gray-600 text-center leading-relaxed">候補時間をワンタップで抽出し、最適な日程をサクッと決定！</p>
-          </div>
+
         </div>
       </div>
     </section>
