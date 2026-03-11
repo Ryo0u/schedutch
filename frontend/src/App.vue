@@ -13,7 +13,7 @@ const shareApp = async () => {
   if (navigator.share) {
     try {
       await navigator.share(shareData)
-    } catch (err) {
+    } catch {
       console.log('シェアがキャンセルされました')
     }
   } else {
@@ -24,7 +24,7 @@ const shareApp = async () => {
       setTimeout(() => {
         isCopied.value = false
       }, 2000)
-    } catch (err) {
+    } catch {
       alert('コピーに失敗しました。URLを手動でコピーしてください。')
     }
   }
