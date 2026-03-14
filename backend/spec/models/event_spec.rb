@@ -20,4 +20,17 @@ RSpec.describe Event, type: :model do
       expect(build(:event, password: '', password_confirmation: '')).to be_invalid
     end
   end
+  
+  describe "associations" do
+    it "destroys associated candidates, users, and responses when deleted" do
+      event = create(:event)
+      user = create(:user, event: event)
+      candidate = create(:candidate, event: event)
+      create(:response, user: user, candidate: candidate)
+      
+      expect { event.destroy }.to change { Candidate.count }.by(-1)
+                                       .and change { User.count }.by(-1)
+                                       .and change { Response.count }.by(-1)
+    end
+  end
 end
