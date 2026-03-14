@@ -24,8 +24,8 @@ RSpec.describe Event, type: :model do
   describe "associations" do
     it "destroys associated candidates, users, and responses when deleted" do
       event = create(:event)
-      user = create(:user, event: event)
       candidate = create(:candidate, event: event)
+      user = create(:user, event: event)
       create(:response, user: user, candidate: candidate)
       
       expect { event.destroy }.to change { Candidate.count }.by(-1)
