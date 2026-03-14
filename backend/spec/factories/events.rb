@@ -1,4 +1,4 @@
-FactotyBot.define do
+FactoryBot.define do
   factory :event do
     title {"テストイベント"}
     password { "eventpass123" }
