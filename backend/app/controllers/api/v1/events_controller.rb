@@ -27,10 +27,10 @@ class Api::V1::EventsController < ApplicationController
     event = Event.find_by(url_token: params[:id])
     
     if event.authenticate(params[:password])
-      Response.where(user_id: User.where(event_id: event.id).select(:id)).delete_all
-      User.where(event_id: event.id).delete_all
-      Candidate.where(event_id: event.id).delete_all
-      event.delete
+      ActiveRecord::Base.transaction do
+      # delete_allで子要素を削除
+      event.destroy! 
+    end
       
       render json: {message: "削除しました"}, status: :ok
     
