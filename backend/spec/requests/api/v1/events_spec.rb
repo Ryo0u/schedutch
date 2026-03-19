@@ -71,6 +71,10 @@ RSpec.describe "Api::V1::Events", type: :request do
   
   describe "GET /api/v1/events/:url_token" do
     let!(:event) {create(:event, url_token: "valid-token")}
+    let!(:user) { create(:user, name: "test-user", event: event) }
+    let!(:candidate) { create(:candidate, event: event) }
+    let!(:response_data) { create(:response, user: user, candidate: candidate, status: 2) }
+    
     context "when the event exists" do
       it "requires the event details and 200 OK" do
         get "/api/v1/events/#{event.url_token}"
@@ -78,24 +82,34 @@ RSpec.describe "Api::V1::Events", type: :request do
         expect(response).to have_http_status(:ok) # 200
         
         json = JSON.parse(response.body)
-        expect(json["title"]).to eq "テストイベント"
+        expect(json["title"]).to eq "test-event"
         expect(json["url_token"]).to eq "valid-token"
+      end
+      
+      it "returns event with nested users and responses" do
+        get "/api/v1/events/#{event.url_token}"
+        
+        expect(response).to have_http_status(:ok) # 200
+        json = JSON.parse(response.body)
+        
+        expect(json["url_token"]).to eq "valid-token"
+        expect(json["users"]).to be_any { |u| u["name"] == "test-user" }
+        
+        user_json = json["users"].find { |u| u["name"] == "test-user" }
+        expect(user_json["responses"].length).to eq 1
+        expect(user_json["responses"][0]["status"]).to eq 2
       end
     end
     
     context "when the event does not exists" do
       it "returns 404 Not Found" do
-         get "/api/v1/events/invalid-token"
-         
-         expect(response).to have_http_status(:not_found) # 404
-         
-         json = JSON.parse(response.body)
+        get "/api/v1/events/invalid-token"
+        
+        expect(response).to have_http_status(:not_found) # 404
+        
+        json = JSON.parse(response.body)
         expect(json["error"]).to be_present
       end
-      
     end
-    
-    
   end
-  
 end

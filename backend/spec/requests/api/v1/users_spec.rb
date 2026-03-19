@@ -70,4 +70,18 @@ RSpec.describe "Api::V1::Users", type: :request do
       end
     end
   end
+  
+  describe "DELETE /api/v1/users/:id" do
+    let!(:user) { create(:user) }
+    
+    context "with correct password" do
+      it "deletes the user" do
+        expect {
+          delete "/api/v1/users/#{user.id}", params: { password: "userpass123" }
+        }.to change(User, :count).by(-1)
+        
+        expect(response).to have_http_status(:ok) # 200
+      end
+    end
+  end
 end
