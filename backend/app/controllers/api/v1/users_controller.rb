@@ -90,8 +90,10 @@ class Api::V1::UsersController < ApplicationController
     user = User.find(params[:id])
     
     if user.authenticate(params[:password])
-      Response.where(user_id: user.id).delete_all
-      user.delete
+      ActiveRecord::Base.transaction do
+        # responsesはdelete_allで削除
+        user.destroy!
+      end
       
       render json: { message: "削除しました" }, status: :ok
     else
