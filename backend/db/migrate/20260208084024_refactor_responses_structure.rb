@@ -8,11 +8,11 @@ class RefactorResponsesStructure < ActiveRecord::Migration[8.1]
       t.references :user, null: false, foreign_key: true
       t.references :candidate, null: false, foreign_key: true
       t.datetime :start_time, null: false
-      t.integer :status, default: 0, null: false
+      t.integer :status, default: 0, null: false 
 
       t.timestamps
     end
 
-    add_index :responses, [ :user_id, :candidate_id, :start_time ], unique: true, name: 'unique_user_response'
+    add_index :responses, [:user_id, :candidate_id, :start_time], unique: true, name: 'unique_user_response'
   end
 end
