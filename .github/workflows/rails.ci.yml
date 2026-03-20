@@ -1,0 +1,46 @@
+name: "Rails CI"
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_PASSWORD: password
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      
+    steps:
+      - name: Checkout code
+        uses: action/checkout@v6
+        
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+          
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+        working-directory: backend
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/rails_test
+          
+      - name: Run RSpec tests
+        run: bundle exec rspec
+        working-directory: backend
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/rails_test
