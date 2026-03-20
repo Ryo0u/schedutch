@@ -17,13 +17,13 @@ RSpec.describe Response, type: :model do
 
     it 'is invalid if a user answers the same candidate twice' do
       first_response = create(:response)
-
-      duplicate_response = build(:response,
-        user: first_response.user,
+      
+      duplicate_response = build(:response, 
+        user: first_response.user, 
         candidate: first_response.candidate,
         start_time: first_response.start_time
       )
-
+      
       expect(duplicate_response).to be_invalid
     end
   end
