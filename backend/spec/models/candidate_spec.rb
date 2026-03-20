@@ -9,11 +9,11 @@ RSpec.describe Candidate, type: :model do
     it 'is invalid without a start_time' do
       expect(build(:candidate, start_time: nil)).to be_invalid
     end
-    
+
     it 'is invalid without a end_time' do
       expect(build(:candidate, end_time: nil)).to be_invalid
     end
-    
+
     it 'is invalid without an event' do
       expect(build(:candidate, event: nil)).to be_invalid
     end
