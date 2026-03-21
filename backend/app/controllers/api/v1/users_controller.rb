@@ -62,7 +62,6 @@ class Api::V1::UsersController < ApplicationController
         end
       end.compact
 
-
       Response.insert_all(responses_to_insert) if responses_to_insert.present?
     end
 

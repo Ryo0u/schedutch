@@ -9,7 +9,7 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def show
-    event = Event.includes(users: :responses).find_by(url_token: params[:id])
+    event = Event.includes(:candidates, users: :responses).find_by(url_token: params[:id])
 
     if event
       render json: event.as_json(include: {
