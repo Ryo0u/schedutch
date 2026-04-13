@@ -33,7 +33,7 @@ const shareApp = async () => {
 
 <template>
   <header
-    class="sticky top-0 z-50 w-full border-t-4 border-b border-t-blue-500 border-b-gray-100 bg-white shadow-sm backdrop-blur-md transition-all"
+    class="sticky top-0 z-30 w-full border-t-4 border-b border-t-blue-500 border-b-gray-100 bg-white shadow-sm backdrop-blur-md transition-all"
   >
     <div class="mx-auto flex h-16 items-center justify-between px-2 sm:h-20 sm:px-4">
       

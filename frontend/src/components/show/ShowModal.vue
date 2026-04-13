@@ -98,7 +98,7 @@ const submitData = async (data) => {
 
 <template>
   <div
-    class="fixed inset-0 z-40 flex p-4 transition-all duration-300"
+    class="fixed inset-0 z-50 flex p-4 pt-30 transition-all duration-300"
     :class="
       isExpanded
         ? 'items-center justify-center bg-black/50'
